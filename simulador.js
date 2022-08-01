@@ -7,6 +7,8 @@ let turnaround = prompt("How soon do you need it?");
 let rate = 0;
 let totalAmount = 0;
 
+//Tasa por palabra según el idioma objetivo
+
 switch(targetLanguage) {
     case "spanish":
     case "portuguese":
@@ -49,9 +51,13 @@ switch(targetLanguage) {
         break;
 }
 
+//Creo función para calcular el monto final
+
 function calculatePrice() {
     return wordcount * rate;
 }
+
+//Establezco tarifa mínima
 
 if (calculatePrice() < 50) {
     totalAmount = 50;
@@ -59,9 +65,13 @@ if (calculatePrice() < 50) {
     totalAmount = calculatePrice();
 }
 
+//Establezco tarifa de urgencia
+
 if (turnaround == "As soon as possible") {
     totalAmount = totalAmount * 1.30;
 } 
 
+//Muestro los resultados por alert/consola
+
 alert("The total amount would be $" + totalAmount);
-console.log("Translation from " + sourceLanguage + " into " + targetLanguage + "\nWordcount: " + wordcount + "Turnaround: " + turnaround);
+console.log("Translation from " + sourceLanguage + " into " + targetLanguage + "\nWordcount: " + wordcount + "\nTurnaround: " + turnaround);
