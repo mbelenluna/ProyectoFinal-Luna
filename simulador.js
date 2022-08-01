@@ -1,3 +1,9 @@
+//Creo función para calcular el monto final
+
+function calculatePrice() {
+    return wordcount * rate;
+}
+
 //Variables
 
 let wordcount = parseInt(prompt("Please insert the word count of your file(s)."));
@@ -49,12 +55,6 @@ switch(targetLanguage) {
     case "hmong":
         rate = 0.20;
         break;
-}
-
-//Creo función para calcular el monto final
-
-function calculatePrice() {
-    return wordcount * rate;
 }
 
 //Establezco tarifa mínima
