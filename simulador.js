@@ -88,4 +88,4 @@ if (turnaround == "As soon as possible") {
 //Muestro los resultados por alert/consola
 
 alert("The total amount would be $" + totalAmount);
-console.log("Translation from " + sourceLanguage + " into " + targetLanguage + "\nWordcount: " + totalWordcount + "\nFile names: " + fileNames.toString() + "\nTurnaround: " + turnaround);
+console.log("Translation from " + sourceLanguage + " into " + targetLanguage + "\nWordcount: " + totalWordcount + "\nFile names: " + fileNames.join(", ") + "\nTurnaround: " + turnaround);
