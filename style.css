@@ -1663,16 +1663,16 @@ ul {
 }
 
 .tool ul li {
-    border: black solid;
+    border: black solid 0.5px;
     border-radius: 2px;
     background-color: #aac5e5;
     text-align: center;
     margin: 2px;
-    padding: 3px;
+    padding: 3px 5px;
 }
 
 .select-source-language, .select-target-language, .turnaround {
-    background-color: honeydew;
+    background-color: #f0fcff;
     border: 1px gray solid;
     padding: 1rem;
     margin: 1rem;
