@@ -128,3 +128,11 @@ let clientEmail;
 if (proceed === "yes" || proceed === "YES" || proceed === "Yes") {
     clientEmail = prompt("Please insert your email address. One of our agents will get in touch with you soon to confirm the quote.");
 } 
+
+//Uso de Find y Filter 
+
+const searchResult = services.find((language) => language.target === "polish");
+console.log("We offer the following service that matches your search: " + searchResult.source + " into " + searchResult.target + ": " + searchResult.rate);
+
+const filterResult = services.filter((language) => language.target === "english");
+console.log(filterResult); 
