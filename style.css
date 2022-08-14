@@ -1683,6 +1683,14 @@ ul {
     justify-content: space-around;
 }
 
+.turnaround-responses #asap, #notrush {
+    padding: 3px 5px;
+    border-radius: 2px;
+    border: black solid 0.5px;
+    background-color: #aac5e5;
+    margin: 1rem;
+}
+
 .submit {
     display: flex;
     justify-content: center;
