@@ -1,4 +1,4 @@
-//Creo función para calcular la rate por palabra y el monto final
+//FUNCIONES
 
 function calculatePrice() {
     return totalWordcount * calculateRate();
@@ -15,7 +15,16 @@ function calculateRate() {
     }
 }
 
-//EVENTO DE TECLADO DETECTANDO EL ENTER
+function avoidErrors(e) {
+    if (e === undefined) {
+        alert("Error. Please ensure you have selected a file, source language, target language and wordcount.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//EVENTO DE ENTER
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         submitButton.onclick();
@@ -29,7 +38,7 @@ let targetLanguageSelected;
 let turnaround;
 let rate = 0;
 let totalAmount = 0;
-let totalWordcount = 0;
+let totalWordcount;
 let fileName;
 const sourceLanguageList = document.getElementsByClassName("source-language");
 let targetLanguages = document.getElementsByClassName("target-language");
@@ -472,11 +481,12 @@ notrush.onclick = () => {
     console.log(turnaround);
 }
 
-//SUBMIT
+//SUBMIT, debug y muestro resultados
 
 submitButton = document.getElementById("submit");
 
 submitButton.onclick = () => {
+if ((avoidErrors(sourceLanguageSelected) === true) && (avoidErrors(targetLanguageSelected) === true) && (avoidErrors(fileName) === true) && (avoidErrors(turnaround) === true) && (avoidErrors(totalWordcount) === true)) {
     //Wordcount en DOM
     let wordCount = document.getElementById("wordcount").value;
     console.log(wordCount);
@@ -491,15 +501,15 @@ submitButton.onclick = () => {
     } else {
         totalAmount = calculatePrice();
     }
-    
+
     //Establezco tarifa de urgencia
-    
+
     if (turnaround == "As soon as possible") {
         totalAmount = totalAmount * 1.30;
-    } 
+    }
 
     //Redondeo el monto
-    
+
     totalAmount = Math.round(totalAmount);
 
     //Muestro los resultados en el HTML
@@ -511,8 +521,11 @@ submitButton.onclick = () => {
     <input class="name" type="text">
     <label>Email Address:</label>
     <input class="email" type="text">
-    <button><p>Send</p></button>`;
+    <button id="send"><p>Send</p></button>`;
 }
+}
+
+
 
 
 

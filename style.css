@@ -1711,3 +1711,18 @@ ul {
     justify-content: center;
     flex-direction: column;
 }
+
+#send {
+    padding: 0.5rem;
+    max-height: 2.5rem;
+    color: white;
+    background-color: #1762b9;
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
