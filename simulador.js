@@ -17,7 +17,8 @@ function calculateRate() {
 
 function avoidErrors(e) {
     if (e === undefined) {
-        alert("Error. Please ensure you have selected a file, source language, target language and wordcount.");
+        console.log(e);
+        alert("Error. Please ensure you have selected a file, source language, target language, turnaround and wordcount.");
         return false;
     } else {
         return true;
@@ -40,8 +41,6 @@ let rate = 0;
 let totalAmount = 0;
 let totalWordcount;
 let fileName;
-const sourceLanguageList = document.getElementsByClassName("source-language");
-let targetLanguages = document.getElementsByClassName("target-language");
 
 //Tasa por palabra 
 
@@ -486,25 +485,26 @@ notrush.onclick = () => {
 submitButton = document.getElementById("submit");
 
 submitButton.onclick = () => {
-if ((avoidErrors(sourceLanguageSelected) === true) && (avoidErrors(targetLanguageSelected) === true) && (avoidErrors(fileName) === true) && (avoidErrors(turnaround) === true) && (avoidErrors(totalWordcount) === true)) {
-    //Wordcount en DOM
     let wordCount = document.getElementById("wordcount").value;
     console.log(wordCount);
     totalWordcount = parseInt(wordCount);
-    rate = calculateRate();
-    totalAmount = calculatePrice();
 
-    //Establezco tarifa mínima
-
-    if (calculatePrice() < 50) {
-        totalAmount = 50;
-    } else {
+    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(turnaround)) && (avoidErrors(totalWordcount))) {
+        //Wordcount en DOM
+        rate = calculateRate();
         totalAmount = calculatePrice();
-    }
 
-    //Establezco tarifa de urgencia
+        //Establezco tarifa mínima
 
-    if (turnaround == "As soon as possible") {
+        if (calculatePrice() < 50) {
+            totalAmount = 50;
+        } else {
+            totalAmount = calculatePrice();
+        }
+
+        //Establezco tarifa de urgencia
+
+        if (turnaround == "As soon as possible") {
         totalAmount = totalAmount * 1.30;
     }
 
