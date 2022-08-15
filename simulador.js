@@ -1,4 +1,4 @@
-//Creo función para calcular el monto final y loopear los idiomas objetivo
+//Creo función para calcular la rate por palabra y el monto final
 
 function calculatePrice() {
     return totalWordcount * calculateRate();
@@ -15,33 +15,24 @@ function calculateRate() {
     }
 }
 
+//EVENTO DE TECLADO DETECTANDO EL ENTER
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        submitButton.onclick();
+    }
+});
+
 //Variables
 
-let wordcount;
 let sourceLanguageSelected;
 let targetLanguageSelected;
 let turnaround;
-let addFiles = true;
 let rate = 0;
 let totalAmount = 0;
 let totalWordcount = 0;
-const fileNames = [];
+let fileName;
 const sourceLanguageList = document.getElementsByClassName("source-language");
 let targetLanguages = document.getElementsByClassName("target-language");
-
-
-while (addFiles === true) { 
-    wordcount = parseInt(prompt("Please insert the word count of your file."));
-    fileNames.push(prompt("Insert the name of your file."));
-    totalWordcount = totalWordcount + wordcount;
-    addMoreFiles = prompt("Would you like to add more files?");
-    
-    if (addMoreFiles === "yes") {
-        addFiles = true;
-    } else if (addMoreFiles === "no") {
-        addFiles = false;
-    } 
-}
 
 //Tasa por palabra 
 
@@ -170,12 +161,30 @@ let spaT = document.getElementById("spa-t");
 let tagT = document.getElementById("tag-t");
 let vietT = document.getElementById("viet-t");
 
+//Resultados DOM
+
+let results = document.getElementById("results");
+
+//Filename en DOM
+
+let fileSelected = document.getElementById('myFile').onchange = function () {
+    fileName = this.value;
+};
+
+
+
+
+
 //EVENTOS PARA SOURCE LANGUAGE 
 
 afrS.onclick = () => {
     sourceLanguageSelected = "afrikaans";
     afrS.style.backgroundColor = "white";
     console.log(sourceLanguageSelected);
+    afrS.onclick = () => {
+        sourceLanguageSelected = undefined;
+        afrS.style.backgroundColor = "#aac5e5";
+    }
 }
 amhS.onclick = () => {
     sourceLanguageSelected = "amharic";
@@ -446,7 +455,6 @@ vietT.onclick = () => {
     console.log(targetLanguageSelected);
 }
 
-
 //DOM turnaround
 
 let asap = document.getElementById("asap");
@@ -464,12 +472,15 @@ notrush.onclick = () => {
     console.log(turnaround);
 }
 
-
-
 //SUBMIT
 
 submitButton = document.getElementById("submit");
+
 submitButton.onclick = () => {
+    //Wordcount en DOM
+    let wordCount = document.getElementById("wordcount").value;
+    console.log(wordCount);
+    totalWordcount = parseInt(wordCount);
     rate = calculateRate();
     totalAmount = calculatePrice();
 
@@ -491,15 +502,16 @@ submitButton.onclick = () => {
     
     totalAmount = Math.round(totalAmount);
 
-    alert("The total amount would be $" + totalAmount);
-    console.log("Translation from " + sourceLanguageSelected + " into " + targetLanguageSelected + "\nWordcount: " + totalWordcount + "\nFile names: " + fileNames.join(", ") + "\nTurnaround: " + turnaround + "\nThe total amount is $" + totalAmount);
+    //Muestro los resultados en el HTML
 
-    let proceed = prompt("Would you like to proceed with this request?");
-    let clientEmail;
-
-    if (proceed === "yes" || proceed === "YES" || proceed === "Yes") {
-    clientEmail = prompt("Please insert your email address. One of our agents will get in touch with you soon to confirm the quote.");
-} 
+    results.innerHTML = `<p>Translation from ` + sourceLanguageSelected + ` into ` + targetLanguageSelected + `. \nWordcount: ` + totalWordcount + `. \nFile names: ` + fileName + `. \nTurnaround: ` + turnaround + `. \nThe total amount is $` + totalAmount + `.</p>
+    <h2>Would you like to proceed?</h2>
+    <p>If you would like us to proceed with your request, please enter your name and email address below.</p>
+    <label>Full Name:</label>
+    <input class="name" type="text">
+    <label>Email Address:</label>
+    <input class="email" type="text">
+    <button><p>Send</p></button>`;
 }
 
 

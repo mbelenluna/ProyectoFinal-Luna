@@ -119,11 +119,17 @@
     <div class="tool container">
         <h2>Automatic Quote</h2>
         <strong>Upload your file below. Our tool will analyze it and provide a quote based on the word count and details
-            provided.</strong>
+            provided. NOTE: If you are going to select multiple language pairs, please select one at a time.</strong>
         <div class="upload">
             <button class="upload-file">
-                Select file
+                <form action="/action_page.php">
+                    <input type="file" id="myFile" multiple>
+                </form>
             </button>
+        </div>
+        <div class="wordcount">
+            <strong>Please insert the total word count of your files.</strong>
+            <input type="number" id="wordcount">
         </div>
         <div class="select-source-language">
             <strong>Please select the source language.</strong>
@@ -174,7 +180,6 @@
             <div class="row">
                 <div class="language-list1 col-12 col-sm-6 col-md-4">
                     <ul>
-                        <li class="target-language" id="eng-t">English</li>
                         <li class="target-language" id="afr-t">Afrikaans</li>
                         <li class="target-language" id="amh-t">Amharic</li>
                         <li class="target-language" id="arc-t">Arabic</li>
@@ -183,14 +188,15 @@
                         <li class="target-language" id="bur-t">Burmese</li>
                         <li class="target-language" id="cam-t">Cambodian (Khmer)</li>
                         <li class="target-language" id="sch-t">Chinese (Simplified)</li>
+                        <li class="target-language" id="tch-t">Chinese (Traditional)</li>
                     </ul>
                 </div>
                 <div class="language-list2 col-12 col-sm-6 col-md-4">
                     <ul>
-                        <li class="target-language" id="tch-t">Chinese (Traditional)</li>
                         <li class="target-language" id="cro-t">Croatian</li>
                         <li class="target-language" id="dar-t">Dari</li>
                         <li class="target-language" id="dut-t">Dutch</li>
+                        <li class="target-language" id="eng-t">English</li>
                         <li class="target-language" id="far-t">Farsi</li>
                         <li class="target-language" id="freu-t">French</li>
                         <li class="target-language" id="ger-t">German</li>
@@ -223,6 +229,7 @@
         <div class="submit">
             <button id="submit">SUBMIT</button>
         </div>
+        <div id="results"></div>
     </div>
 
     <!-- Comienzo del footer -->

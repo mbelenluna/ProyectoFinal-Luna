@@ -1669,6 +1669,8 @@ ul {
     text-align: center;
     margin: 2px;
     padding: 3px 5px;
+    min-width: 150px;
+    cursor: pointer;
 }
 
 .select-source-language, .select-target-language, .turnaround {
@@ -1689,6 +1691,7 @@ ul {
     border: black solid 0.5px;
     background-color: #aac5e5;
     margin: 1rem;
+    cursor: pointer;
 }
 
 .submit {
@@ -1701,4 +1704,10 @@ ul {
     margin: 1rem;
     color: white;
     background-color: #1762b9;
+}
+
+.wordcount {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
