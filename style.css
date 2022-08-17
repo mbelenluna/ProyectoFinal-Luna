@@ -1651,7 +1651,7 @@ ul {
     background-color: #1b74bc;
     font-family: parrafos;
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     border-radius: 10px;
 }
 
@@ -1669,7 +1669,7 @@ ul {
     text-align: center;
     margin: 2px;
     padding: 3px 5px;
-    min-width: 150px;
+    min-width: 155px;
     cursor: pointer;
 }
 
@@ -1725,4 +1725,16 @@ ul {
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width:575px) {
+    .language-list3, .language-list2, .language-list1 {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width:475px) {
+    .upload-file {
+        max-width: 200px;
+    }
 }

@@ -25,6 +25,10 @@ function avoidErrors(e) {
     }
 }
 
+function capitalizeFirstLetter (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 //EVENTO DE ENTER
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -513,6 +517,9 @@ submitButton.onclick = () => {
     totalAmount = Math.round(totalAmount);
 
     //Muestro los resultados en el HTML
+
+    sourceLanguageSelected = capitalizeFirstLetter(sourceLanguageSelected);
+    targetLanguageSelected = capitalizeFirstLetter(targetLanguageSelected);
 
     results.innerHTML = `<p>Translation from ` + sourceLanguageSelected + ` into ` + targetLanguageSelected + `. \nWordcount: ` + totalWordcount + `. \nFile names: ` + fileName + `. \nTurnaround: ` + turnaround + `. \nThe total amount is $` + totalAmount + `.</p>
     <h2>Would you like to proceed?</h2>
