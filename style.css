@@ -1665,7 +1665,8 @@ ul {
 .tool ul li {
     border: black solid 0.5px;
     border-radius: 2px;
-    background-color: #aac5e5;
+    background-color: #1b74bc;
+    color: white;
     text-align: center;
     margin: 2px;
     padding: 3px 5px;
@@ -1689,7 +1690,8 @@ ul {
     padding: 3px 5px;
     border-radius: 2px;
     border: black solid 0.5px;
-    background-color: #aac5e5;
+    background-color: #1b74bc;
+    color: white;
     margin: 1rem;
     cursor: pointer;
 }
