@@ -1740,6 +1740,10 @@ ul {
     align-items: center;
 }
 
+.cart-container {
+    font-family: parrafos;
+}
+
 .add-button {
     background-color: hsl(277, 90%, 45%);
     color: white; 
@@ -1770,6 +1774,7 @@ ul {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    font-family: parrafos;
 }
 
 @media screen and (max-width:575px) {
