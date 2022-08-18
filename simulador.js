@@ -15,6 +15,39 @@ function calculateRate() {
     }
 }
 
+function selectAndUnselectSource() {
+    sourceLanguagesList.forEach((language) => {
+        if (language.className === "selected") {
+            language.classList.remove("selected");
+        } 
+        if (language.className ==! "selected") {
+            language.className = "unselected";
+        }
+    });
+}
+
+function selectAndUnselectTarget() {
+    targetLanguagesList.forEach((language) => {
+        if (language.className === "selected") {
+            language.classList.remove("selected");
+        } 
+        if (language.className ==! "selected") {
+            language.className = "unselected";
+        }
+    });
+}
+
+function selectAndUnselectTurnaround() {
+    turnaroundList.forEach((time) => {
+        if (time.className === "selected") {
+            time.classList.remove("selected");
+        } 
+        if (time.className ==! "selected") {
+            time.className = "unselected";
+        }
+    });
+}
+
 function avoidErrors(e) {
     if (e === undefined) {
         console.log(e);
@@ -143,6 +176,9 @@ let spaS = document.getElementById("spa-s");
 let tagS = document.getElementById("tag-s");
 let vietS = document.getElementById("viet-s");
 
+const sourceLanguagesList = []
+sourceLanguagesList.push(afrS, amhS, arcS, armS, indS, burS, camS, schS, tchS, croS, darS, dutS, engS, farS, freuS, gerS, farS, hinS, itaS, jpnS, korS, pasS, polS, portS, rusS, spaS, tagS, vietS);
+
 //Target languages
 
 let afrT = document.getElementById("afr-t");
@@ -173,6 +209,9 @@ let spaT = document.getElementById("spa-t");
 let tagT = document.getElementById("tag-t");
 let vietT = document.getElementById("viet-t");
 
+const targetLanguagesList = [];
+targetLanguagesList.push(afrT, amhT, arcT, armT, indT, burT, camT, schT, tchT, croT, darT, dutT, engT, farT, freuT, gerT, hinT, itaT, jpnT, korT, pasT, polT, portT, rusT, spaT, tagT, vietT);
+
 //Resultados DOM
 
 let results = document.getElementById("results");
@@ -185,143 +224,168 @@ let fileSelected = document.getElementById('myFile').onchange = function () {
 
 //EVENTOS PARA SOURCE LANGUAGE 
 
+
 afrS.onclick = () => {
     sourceLanguageSelected = "afrikaans";
-    afrS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    afrS.className = "selected";
     console.log(sourceLanguageSelected);
-    afrS.onclick = () => {
-        sourceLanguageSelected = undefined;
-        afrS.style.backgroundColor = "#1b74bc";
-    }
 }
 amhS.onclick = () => {
     sourceLanguageSelected = "amharic";
-    amhS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    amhS.className = "selected";
     console.log(sourceLanguageSelected);
 }
+
 arcS.onclick = () => {
     sourceLanguageSelected = "arabic";
-    arcS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    arcS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 armS.onclick = () => {
     sourceLanguageSelected = "armenian";
-    armS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    armS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 indS.onclick = () => {
     sourceLanguageSelected = "indonesian";
-    indS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    indS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 burS.onclick = () => {
     sourceLanguageSelected = "burmese";
-    burS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    burS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 camS.onclick = () => {
     sourceLanguageSelected = "cambodian";
-    camS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    camS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 schS.onclick = () => {
     sourceLanguageSelected = "simplified chinese";
-    schS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    schS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 tchS.onclick = () => {
     sourceLanguageSelected = "traditional chinese";
-    tchS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    tchS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 croS.onclick = () => {
     sourceLanguageSelected = "croatian";
-    croS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    croS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 darS.onclick = () => {
     sourceLanguageSelected = "dari";
-    darS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    darS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 dutS.onclick = () => {
     sourceLanguageSelected = "dutch";
-    dutS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    dutS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 engS.onclick = () => {
     sourceLanguageSelected = "english";
-    engS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    engS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 farS.onclick = () => {
     sourceLanguageSelected = "farsi";
-    farS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    farS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 freuS.onclick = () => {
     sourceLanguageSelected = "french";
-    freuS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    freuS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 gerS.onclick = () => {
     sourceLanguageSelected = "german";
-    gerS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    gerS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 hinS.onclick = () => {
     sourceLanguageSelected = "hindi";
-    hinS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    hinS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 itaS.onclick = () => {
     sourceLanguageSelected = "italian";
-    itaS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    itaS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 jpnS.onclick = () => {
     sourceLanguageSelected = "japanese";
-    jpnS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    jpnS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 korS.onclick = () => {
     sourceLanguageSelected = "korean";
-    korS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    korS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 pasS.onclick = () => {
     sourceLanguageSelected = "pashto";
-    pasS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    pasS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 polS.onclick = () => {
     sourceLanguageSelected = "polish";
-    polS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    polS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 portS.onclick = () => {
     sourceLanguageSelected = "portuguese";
-    portS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    portS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 rusS.onclick = () => {
     sourceLanguageSelected = "russian";
-    rusS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    rusS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 spaS.onclick = () => {
     sourceLanguageSelected = "spanish";
-    spaS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    spaS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 tagS.onclick = () => {
     sourceLanguageSelected = "tagalog";
-    tagS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    tagS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 vietS.onclick = () => {
     sourceLanguageSelected = "vietnamese";
-    vietS.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectSource();
+    vietS.className = "selected";
     console.log(sourceLanguageSelected);
 }
 
@@ -329,137 +393,164 @@ vietS.onclick = () => {
 
 afrT.onclick = () => {
     targetLanguageSelected = "afrikaans";
-    afrT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    afrT.className = "selected";
     console.log(targetLanguageSelected);
 }
 amhT.onclick = () => {
     targetLanguageSelected = "amharic";
-    amhT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    amhT.className = "selected";
     console.log(targetLanguageSelected);
 }
 arcT.onclick = () => {
     targetLanguageSelected = "arabic";
-    arcT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    arcT.className = "selected";
     console.log(targetLanguageSelected);
 }
 armT.onclick = () => {
     targetLanguageSelected = "armenian";
-    armT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    armT.className = "selected";
     console.log(targetLanguageSelected);
 }
 indT.onclick = () => {
     targetLanguageSelected = "indonesian";
-    indT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    indT.className = "selected";
     console.log(targetLanguageSelected)
 }
 burT.onclick = () => {
     targetLanguageSelected = "burmese";
-    burT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    burT.className = "selected";
     console.log(targetLanguageSelected)
 }
 camT.onclick = () => {
     targetLanguageSelected = "cambodian";
-    camT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    camT.className = "selected";
     console.log(targetLanguageSelected)
 }
 schT.onclick = () => {
     targetLanguageSelected = "simplified chinese";
-    schT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    schT.className = "selected";
     console.log(targetLanguageSelected)
 }
 tchT.onclick = () => {
     targetLanguageSelected = "traditional chinese";
-    tchT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    tchT.className = "selected";
     console.log(targetLanguageSelected)
 }
 croT.onclick = () => {
     targetLanguageSelected = "croatian";
-    croT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    croT.className = "selected";
     console.log(targetLanguageSelected)
 }
 darT.onclick = () => {
     targetLanguageSelected = "dari";
-    darT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    darT.className = "selected";
     console.log(targetLanguageSelected)
 }
 dutT.onclick = () => {
     targetLanguageSelected = "dutch";
-    dutT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    dutT.className = "selected";
     console.log(targetLanguageSelected)
 }
 engT.onclick = () => {
     targetLanguageSelected = "english";
-    engT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    engT.className = "selected";
     console.log(targetLanguageSelected)
 }
 farT.onclick = () => {
     targetLanguageSelected = "farsi";
-    farT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    farT.className = "selected";
     console.log(targetLanguageSelected)
 }
 freuT.onclick = () => {
     targetLanguageSelected = "french";
-    freuT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    freuT.className = "selected";
     console.log(targetLanguageSelected)
 }
 gerT.onclick = () => {
     targetLanguageSelected = "german";
-    gerT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    gerT.className = "selected";
     console.log(targetLanguageSelected)
 }
 hinT.onclick = () => {
     targetLanguageSelected = "hindi";
-    hinT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    hinT.className = "selected";
     console.log(targetLanguageSelected)
 }
 itaT.onclick = () => {
     targetLanguageSelected = "italian";
-    itaT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    itaT.className = "selected";
     console.log(targetLanguageSelected)
 }
 jpnT.onclick = () => {
     targetLanguageSelected = "japanese";
-    jpnT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    jpnT.className = "selected";
     console.log(targetLanguageSelected)
 }
 korT.onclick = () => {
     targetLanguageSelected = "korean";
-    korT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    korT.className = "selected";
     console.log(targetLanguageSelected)
 }
 pasT.onclick = () => {
     targetLanguageSelected = "pashto";
-    pasT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    pasT.className = "selected";
     console.log(targetLanguageSelected)
 }
 polT.onclick = () => {
     targetLanguageSelected = "polish";
-    polT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    polT.className = "selected";
     console.log(targetLanguageSelected)
 }
 portT.onclick = () => {
     targetLanguageSelected = "portuguese";
-    portT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    portT.className = "selected";
     console.log(targetLanguageSelected)
 }
 rusT.onclick = () => {
     targetLanguageSelected = "russian";
-    rusT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    rusT.className = "selected";
     console.log(targetLanguageSelected)
 }
 spaT.onclick = () => {
     targetLanguageSelected = "spanish";
-    spaT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    spaT.className = "selected";
     console.log(targetLanguageSelected);
 }
 tagT.onclick = () => {
     targetLanguageSelected = "tagalog";
-    tagT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    tagT.className = "selected";
     console.log(targetLanguageSelected);
 }
 vietT.onclick = () => {
     targetLanguageSelected = "vietnamese";
-    vietT.style.backgroundColor = "rgb(17, 3, 63)";
+    selectAndUnselectTarget();
+    vietT.className = "selected";
     console.log(targetLanguageSelected);
 }
 
@@ -467,16 +558,20 @@ vietT.onclick = () => {
 
 let asap = document.getElementById("asap");
 let notrush = document.getElementById("notrush");
+const turnaroundList = [];
+turnaroundList.push(asap, notrush);
 
 asap.onclick = () => {
-    asap.style.backgroundColor = "rgb(17, 3, 63)";
     turnaround = "As soon as possible";
+    selectAndUnselectTurnaround();
+    asap.className = "selected";
     console.log(turnaround);
 }
 
 notrush.onclick = () => {
-    notrush.style.backgroundColor = "rgb(17, 3, 63)";
     turnaround = "Standard turnaround";
+    selectAndUnselectTurnaround();
+    notrush.className = "selected";
     console.log(turnaround);
 }
 
@@ -506,18 +601,21 @@ submitButton.onclick = () => {
 
         if (turnaround == "As soon as possible") {
         totalAmount = totalAmount * 1.30;
-    }
+        }
 
-    //Redondeo el monto
+        //Redondeo el monto
 
-    totalAmount = Math.round(totalAmount);
+        totalAmount = Math.round(totalAmount);
 
-    //Muestro los resultados en el HTML
+        if (isNaN(totalAmount)) {
+            results.innerHTML = "<p>Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.</p>"
+        } else {
+        //Muestro los resultados en el HTML
 
-    sourceLanguageSelected = capitalizeFirstLetter(sourceLanguageSelected);
-    targetLanguageSelected = capitalizeFirstLetter(targetLanguageSelected);
+        sourceLanguageSelected = capitalizeFirstLetter(sourceLanguageSelected);
+        targetLanguageSelected = capitalizeFirstLetter(targetLanguageSelected);
 
-    results.innerHTML = `<p>Translation from ` + sourceLanguageSelected + ` into ` + targetLanguageSelected + `. \nWordcount: ` + totalWordcount + `. \nFile names: ` + fileName + `. \nTurnaround: ` + turnaround + `. \nThe total amount is $` + totalAmount + `.</p>
+        results.innerHTML = `<p>Translation from ` + sourceLanguageSelected + ` into ` + targetLanguageSelected + `. \nWordcount: ` + totalWordcount + `. \nFile names: ` + fileName + `. \nTurnaround: ` + turnaround + `. \nThe total amount is <b>$` + totalAmount + `</b>.</p>
     <h2>Would you like to proceed?</h2>
     <p>If you would like us to proceed with your request, please enter your name and email address below.</p>
     <label>Full Name:</label>
@@ -525,9 +623,9 @@ submitButton.onclick = () => {
     <label>Email Address:</label>
     <input class="email" type="text">
     <button id="send"><p>Send</p></button>`;
+        }
+    }
 }
-}
-
 
 
 

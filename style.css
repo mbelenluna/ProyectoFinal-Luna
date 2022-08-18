@@ -1665,7 +1665,6 @@ ul {
 .tool ul li {
     border: black solid 0.5px;
     border-radius: 2px;
-    background-color: #1b74bc;
     color: white;
     text-align: center;
     margin: 2px;
@@ -1675,10 +1674,17 @@ ul {
 }
 
 .select-source-language, .select-target-language, .turnaround {
-    background-color: #f0fcff;
     border: 1px gray solid;
     padding: 1rem;
     margin: 1rem;
+}
+
+.selected {
+    background-color: rgb(17, 3, 63);
+}
+
+.unselected {
+    background-color: #1b74bc;
 }
 
 .turnaround-responses {
@@ -1690,7 +1696,6 @@ ul {
     padding: 3px 5px;
     border-radius: 2px;
     border: black solid 0.5px;
-    background-color: #1b74bc;
     color: white;
     margin: 1rem;
     cursor: pointer;
@@ -1705,13 +1710,26 @@ ul {
     padding: 1rem;
     margin: 1rem;
     color: white;
-    background-color: #1762b9;
+    background-color: #1b74bc;
+    font-weight: bold;
+}
+
+.submit button:hover {
+    background-color: black;
+
 }
 
 .wordcount {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+}
+
+.wordcount strong {
+    padding-right: 10px;
+}
+
+#wordcount {
+    max-width: 100px;
 }
 
 #send {
@@ -1740,3 +1758,4 @@ ul {
         max-width: 200px;
     }
 }
+
