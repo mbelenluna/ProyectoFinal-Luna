@@ -64,9 +64,7 @@ function capitalizeFirstLetter (string) {
 
 
 
-const selectedSourceLanguages = [];
-const selectedTargetLanguages = [];
-let finalTotalAmount = 0;
+
 
 function addToCart() {
     let serviceLine = "";
@@ -106,15 +104,6 @@ function addToCart() {
         container.innerHTML = serviceLine;
 }
 
-
-
-
-
-
-
-
-
-
 //EVENTO DE ENTER
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -132,6 +121,9 @@ let totalAmount = 0;
 let totalWordcount;
 let fileName;
 let finalResult;
+let finalTotalAmount = 0;
+const selectedSourceLanguages = [];
+const selectedTargetLanguages = [];
 
 //Tasa por palabra, objetos creados con clase constructora
 
@@ -277,7 +269,6 @@ let fileSelected = document.getElementById('myFile').onchange = function () {
 };
 
 //EVENTOS PARA SOURCE LANGUAGE 
-
 
 afrS.onclick = () => {
     sourceLanguageSelected = "afrikaans";
@@ -653,17 +644,13 @@ submitButton = document.getElementById("submit");
 
 submitButton.onclick = () => {
 
-
     if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(turnaround)) && (avoidErrors(totalWordcount))) {
-
 
         //Establezco tarifa de urgencia
 
         if (turnaround == "As soon as possible") {
         totalAmount = totalAmount * 1.30;
         }
-
-
 
         if (isNaN(finalTotalAmount)) {
             results.innerHTML = "<p>Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.</p>"
