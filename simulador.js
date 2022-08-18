@@ -62,6 +62,59 @@ function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
+
+const selectedSourceLanguages = [];
+const selectedTargetLanguages = [];
+let finalTotalAmount = 0;
+
+function addToCart() {
+    let serviceLine = "";
+    
+
+        selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
+        selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
+        rate = calculateRate();
+
+        console.log(rate);
+
+        let wordCount = document.getElementById("wordcount").value;
+            console.log(wordCount);
+            totalWordcount = parseInt(wordCount);
+            totalAmount = calculatePrice();
+            finalTotalAmount = totalAmount + finalTotalAmount;
+
+            //Establezco tarifa mínima
+
+            if (calculatePrice() < 50) {
+                totalAmount = 50;
+            } else {
+                totalAmount = calculatePrice();
+            }
+            totalAmount = Math.round(totalAmount);
+            console.log(finalTotalAmount);
+
+            //Redondeo el monto
+
+            finalTotalAmount = Math.round(finalTotalAmount);
+
+        for (i = 0; i < selectedSourceLanguages.length; i++) {
+            serviceLine = serviceLine + `
+            <li>Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
+        }
+
+        container.innerHTML = serviceLine;
+}
+
+
+
+
+
+
+
+
+
+
 //EVENTO DE ENTER
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -78,6 +131,7 @@ let rate = 0;
 let totalAmount = 0;
 let totalWordcount;
 let fileName;
+let finalResult;
 
 //Tasa por palabra, objetos creados con clase constructora
 
@@ -554,6 +608,24 @@ vietT.onclick = () => {
     console.log(targetLanguageSelected);
 }
 
+const selectedServices = [];
+selectedServices.push(sourceLanguageSelected);
+selectedServices.push(targetLanguageSelected);
+
+const cart = document.getElementById("cart");
+addButton = document.createElement("button");
+addButton.className = "add-button";
+addButton.innerText = "Add language pair";
+
+const container = document.createElement("div");
+container.className = "cart-container";
+cart.append(container);
+
+cart.append(addButton);
+addButton.onclick = () => {
+    addToCart();
+}
+
 //DOM turnaround
 
 let asap = document.getElementById("asap");
@@ -580,22 +652,10 @@ notrush.onclick = () => {
 submitButton = document.getElementById("submit");
 
 submitButton.onclick = () => {
-    let wordCount = document.getElementById("wordcount").value;
-    console.log(wordCount);
-    totalWordcount = parseInt(wordCount);
+
 
     if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(turnaround)) && (avoidErrors(totalWordcount))) {
-        //Wordcount en DOM
-        rate = calculateRate();
-        totalAmount = calculatePrice();
 
-        //Establezco tarifa mínima
-
-        if (calculatePrice() < 50) {
-            totalAmount = 50;
-        } else {
-            totalAmount = calculatePrice();
-        }
 
         //Establezco tarifa de urgencia
 
@@ -603,19 +663,17 @@ submitButton.onclick = () => {
         totalAmount = totalAmount * 1.30;
         }
 
-        //Redondeo el monto
 
-        totalAmount = Math.round(totalAmount);
 
-        if (isNaN(totalAmount)) {
+        if (isNaN(finalTotalAmount)) {
             results.innerHTML = "<p>Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.</p>"
         } else {
         //Muestro los resultados en el HTML
 
-        sourceLanguageSelected = capitalizeFirstLetter(sourceLanguageSelected);
-        targetLanguageSelected = capitalizeFirstLetter(targetLanguageSelected);
-
-        results.innerHTML = `<p>Translation from ` + sourceLanguageSelected + ` into ` + targetLanguageSelected + `. \nWordcount: ` + totalWordcount + `. \nFile names: ` + fileName + `. \nTurnaround: ` + turnaround + `. \nThe total amount is <b>$` + totalAmount + `</b>.</p>
+        results.append(container);
+        finalResult = document.createElement("div");
+        finalResult.className = "final-result";
+        finalResult.innerHTML = `\n<p>The total amount is <b>$` + finalTotalAmount + `</b>.</p>
     <h2>Would you like to proceed?</h2>
     <p>If you would like us to proceed with your request, please enter your name and email address below.</p>
     <label>Full Name:</label>
@@ -623,6 +681,7 @@ submitButton.onclick = () => {
     <label>Email Address:</label>
     <input class="email" type="text">
     <button id="send"><p>Send</p></button>`;
+        results.append(finalResult);
         }
     }
 }
