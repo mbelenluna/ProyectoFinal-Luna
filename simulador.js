@@ -62,46 +62,53 @@ function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
-
-
-
 function addToCart() {
     let serviceLine = "";
-    
 
-        selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
-        selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
-        rate = calculateRate();
+    console.log(sourceLanguageSelected + targetLanguageSelected + fileName + totalWordcount);
 
-        console.log(rate);
-
-        let wordCount = document.getElementById("wordcount").value;
+            let wordCount = document.getElementById("wordcount").value;
             console.log(wordCount);
             totalWordcount = parseInt(wordCount);
             totalAmount = calculatePrice();
-            finalTotalAmount = totalAmount + finalTotalAmount;
 
-            //Establezco tarifa mínima
+            if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
 
-            if (calculatePrice() < 50) {
-                totalAmount = 50;
-            } else {
-                totalAmount = calculatePrice();
-            }
-            totalAmount = Math.round(totalAmount);
-            console.log(finalTotalAmount);
+                if (isNaN(totalAmount)) {
+                    alert("Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.");
+                    totalAmount = 0;
 
-            //Redondeo el monto
+                } else {
 
-            finalTotalAmount = Math.round(finalTotalAmount);
+                    finalTotalAmount = totalAmount + finalTotalAmount;
 
-        for (i = 0; i < selectedSourceLanguages.length; i++) {
-            serviceLine = serviceLine + `
-            <li>Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
-        }
+                selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
+                selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
+                rate = calculateRate();
+        
+                console.log(rate);
 
+                //Establezco tarifa mínima
+
+                if (calculatePrice() < 50) {
+                    totalAmount = 50;
+                } else {
+                    totalAmount = calculatePrice();
+                }
+                totalAmount = Math.round(totalAmount);
+                console.log(finalTotalAmount);
+
+                //Redondeo el monto
+
+                finalTotalAmount = Math.round(finalTotalAmount);
+
+                    for (i = 0; i < selectedSourceLanguages.length; i++) {
+                    serviceLine = serviceLine + `
+                    <li>Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
+                    }
+                }
         container.innerHTML = serviceLine;
+    }
 }
 
 //EVENTO DE ENTER
@@ -652,11 +659,10 @@ submitButton.onclick = () => {
         totalAmount = totalAmount * 1.30;
         }
 
-        if (isNaN(finalTotalAmount)) {
-            results.innerHTML = "<p>Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.</p>"
-        } else {
         //Muestro los resultados en el HTML
 
+        let mainsection = document.getElementById("main-section");
+        mainsection.innerHTML = "";
         results.append(container);
         finalResult = document.createElement("div");
         finalResult.className = "final-result";
@@ -671,7 +677,7 @@ submitButton.onclick = () => {
         results.append(finalResult);
         }
     }
-}
+
 
 
 

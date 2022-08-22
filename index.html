@@ -118,117 +118,120 @@
     <!--Automatic quote tool -->
     <div class="tool container">
         <h2>Automatic Quote</h2>
-        <strong>Upload your file below. Our tool will analyze it and provide a quote based on the word count and details
-            provided. NOTE: If you are going to select multiple language pairs, please select one at a time.</strong>
-        <div class="upload">
-            <button class="upload-file">
-                <form action="/action_page.php">
-                    <input type="file" id="myFile" multiple>
-                </form>
-            </button>
-        </div>
-        <div class="wordcount">
-            <strong>Please insert the total word count of your files.</strong>
-            <input type="number" id="wordcount">
-        </div>
-        <div class="select-source-language">
-            <strong>Please select the source language.</strong>
-            <div class="row">
-                <div class="language-list1 col-12 col-sm-6 col-md-4">
-                    <ul>
-                        <li class="source-language unselected" id="afr-s">Afrikaans</li>
-                        <li class="source-language unselected"  id="amh-s">Amharic</li>
-                        <li class="source-language unselected"  id="arc-s">Arabic</li>
-                        <li class="source-language unselected"  id="arm-s">Armenian</li>
-                        <li class="source-language unselected"  id="ind-s">Bahasa Indonesian</li>
-                        <li class="source-language unselected"  id="bur-s">Burmese</li>
-                        <li class="source-language unselected"  id="cam-s">Cambodian (Khmer)</li>
-                        <li class="source-language unselected"  id="sch-s">Chinese (Simplified)</li>
-                        <li class="source-language unselected"  id="tch-s">Chinese (Traditional)</li>
-                    </ul>
-                </div>
-                <div class="language-list2 col-12 col-sm-6 col-md-4">
-                    <ul>
-                        <li class="source-language unselected" id="cro-s">Croatian</li>
-                        <li class="source-language unselected" id="dar-s">Dari</li>
-                        <li class="source-language unselected" id="dut-s">Dutch</li>
-                        <li class="source-language unselected" id="eng-s">English</li>
-                        <li class="source-language unselected" id="far-s">Farsi</li>
-                        <li class="source-language unselected" id="freu-s">French</li>
-                        <li class="source-language unselected" id="ger-s">German</li>
-                        <li class="source-language unselected" id="hin-s">Hindi</li>
-                        <li class="source-language unselected" id="ita-s">Italian</li>
-                    </ul>
-                </div>
-                <div class="language-list3 col-12 col-sm-12 col-md-4">
-                    <ul>
-                        <li class="source-language unselected" id="jpn-s">Japanese</li>
-                        <li class="source-language unselected" id="kor-s">Korean</li>
-                        <li class="source-language unselected" id="pas-s">Pashto</li>
-                        <li class="source-language unselected" id="pol-s">Polish</li>
-                        <li class="source-language unselected" id="port-s">Portuguese</li>
-                        <li class="source-language unselected" id="rus-s">Russian</li>
-                        <li class="source-language unselected" id="spa-s">Spanish</li>
-                        <li class="source-language unselected" id="tag-s">Tagalog</li>
-                        <li class="source-language unselected" id="viet-s">Vietnamese</li>
-                    </ul>
+        <div id="main-section">
+            <strong>Upload your file below. Our tool will analyze it and provide a quote based on the word count and
+                details provided. NOTE: If you are going to select multiple language pairs, please select one at a
+                time.</strong>
+            <div class="upload">
+                <button class="upload-file">
+                    <form action="/action_page.php">
+                        <input type="file" id="myFile" multiple>
+                    </form>
+                </button>
+            </div>
+            <div class="wordcount">
+                <strong>Please insert the total word count of your files.</strong>
+                <input type="number" id="wordcount">
+            </div>
+            <div class="select-source-language">
+                <strong>Please select the source language.</strong>
+                <div class="row">
+                    <div class="language-list1 col-12 col-sm-6 col-md-4">
+                        <ul>
+                            <li class="source-language unselected" id="afr-s">Afrikaans</li>
+                            <li class="source-language unselected" id="amh-s">Amharic</li>
+                            <li class="source-language unselected" id="arc-s">Arabic</li>
+                            <li class="source-language unselected" id="arm-s">Armenian</li>
+                            <li class="source-language unselected" id="ind-s">Bahasa Indonesian</li>
+                            <li class="source-language unselected" id="bur-s">Burmese</li>
+                            <li class="source-language unselected" id="cam-s">Cambodian (Khmer)</li>
+                            <li class="source-language unselected" id="sch-s">Chinese (Simplified)</li>
+                            <li class="source-language unselected" id="tch-s">Chinese (Traditional)</li>
+                        </ul>
+                    </div>
+                    <div class="language-list2 col-12 col-sm-6 col-md-4">
+                        <ul>
+                            <li class="source-language unselected" id="cro-s">Croatian</li>
+                            <li class="source-language unselected" id="dar-s">Dari</li>
+                            <li class="source-language unselected" id="dut-s">Dutch</li>
+                            <li class="source-language unselected" id="eng-s">English</li>
+                            <li class="source-language unselected" id="far-s">Farsi</li>
+                            <li class="source-language unselected" id="freu-s">French</li>
+                            <li class="source-language unselected" id="ger-s">German</li>
+                            <li class="source-language unselected" id="hin-s">Hindi</li>
+                            <li class="source-language unselected" id="ita-s">Italian</li>
+                        </ul>
+                    </div>
+                    <div class="language-list3 col-12 col-sm-12 col-md-4">
+                        <ul>
+                            <li class="source-language unselected" id="jpn-s">Japanese</li>
+                            <li class="source-language unselected" id="kor-s">Korean</li>
+                            <li class="source-language unselected" id="pas-s">Pashto</li>
+                            <li class="source-language unselected" id="pol-s">Polish</li>
+                            <li class="source-language unselected" id="port-s">Portuguese</li>
+                            <li class="source-language unselected" id="rus-s">Russian</li>
+                            <li class="source-language unselected" id="spa-s">Spanish</li>
+                            <li class="source-language unselected" id="tag-s">Tagalog</li>
+                            <li class="source-language unselected" id="viet-s">Vietnamese</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="select-target-language">
-            <strong>Which language(s) do you need your document translated into?</strong>
-            <div class="row">
-                <div class="language-list1 col-12 col-sm-6 col-md-4">
-                    <ul>
-                        <li class="target-language unselected" id="afr-t">Afrikaans</li>
-                        <li class="target-language unselected" id="amh-t">Amharic</li>
-                        <li class="target-language unselected" id="arc-t">Arabic</li>
-                        <li class="target-language unselected" id="arm-t">Armenian</li>
-                        <li class="target-language unselected" id="ind-t">Bahasa Indonesian</li>
-                        <li class="target-language unselected" id="bur-t">Burmese</li>
-                        <li class="target-language unselected" id="cam-t">Cambodian (Khmer)</li>
-                        <li class="target-language unselected" id="sch-t">Chinese (Simplified)</li>
-                        <li class="target-language unselected" id="tch-t">Chinese (Traditional)</li>
-                    </ul>
-                </div>
-                <div class="language-list2 col-12 col-sm-6 col-md-4">
-                    <ul>
-                        <li class="target-language unselected" id="cro-t">Croatian</li>
-                        <li class="target-language unselected" id="dar-t">Dari</li>
-                        <li class="target-language unselected" id="dut-t">Dutch</li>
-                        <li class="target-language unselected" id="eng-t">English</li>
-                        <li class="target-language unselected" id="far-t">Farsi</li>
-                        <li class="target-language unselected" id="freu-t">French</li>
-                        <li class="target-language unselected" id="ger-t">German</li>
-                        <li class="target-language unselected" id="hin-t">Hindi</li>
-                        <li class="target-language unselected" id="ita-t">Italian</li>
-                    </ul>
-                </div>
-                <div class="language-list3 col-12 col-sm-12 col-md-4">
-                    <ul>
-                        <li class="target-language unselected" id="jpn-t">Japanese</li>
-                        <li class="target-language unselected" id="kor-t">Korean</li>
-                        <li class="target-language unselected" id="pas-t">Pashto</li>
-                        <li class="target-language unselected" id="pol-t">Polish</li>
-                        <li class="target-language unselected" id="port-t">Portuguese</li>
-                        <li class="target-language unselected" id="rus-t">Russian</li>
-                        <li class="target-language unselected" id="spa-t">Spanish</li>
-                        <li class="target-language unselected" id="tag-t">Tagalog</li>
-                        <li class="target-language unselected" id="viet-t">Vietnamese</li>
-                    </ul>
+            <div class="select-target-language">
+                <strong>Which language(s) do you need your document translated into?</strong>
+                <div class="row">
+                    <div class="language-list1 col-12 col-sm-6 col-md-4">
+                        <ul>
+                            <li class="target-language unselected" id="afr-t">Afrikaans</li>
+                            <li class="target-language unselected" id="amh-t">Amharic</li>
+                            <li class="target-language unselected" id="arc-t">Arabic</li>
+                            <li class="target-language unselected" id="arm-t">Armenian</li>
+                            <li class="target-language unselected" id="ind-t">Bahasa Indonesian</li>
+                            <li class="target-language unselected" id="bur-t">Burmese</li>
+                            <li class="target-language unselected" id="cam-t">Cambodian (Khmer)</li>
+                            <li class="target-language unselected" id="sch-t">Chinese (Simplified)</li>
+                            <li class="target-language unselected" id="tch-t">Chinese (Traditional)</li>
+                        </ul>
+                    </div>
+                    <div class="language-list2 col-12 col-sm-6 col-md-4">
+                        <ul>
+                            <li class="target-language unselected" id="cro-t">Croatian</li>
+                            <li class="target-language unselected" id="dar-t">Dari</li>
+                            <li class="target-language unselected" id="dut-t">Dutch</li>
+                            <li class="target-language unselected" id="eng-t">English</li>
+                            <li class="target-language unselected" id="far-t">Farsi</li>
+                            <li class="target-language unselected" id="freu-t">French</li>
+                            <li class="target-language unselected" id="ger-t">German</li>
+                            <li class="target-language unselected" id="hin-t">Hindi</li>
+                            <li class="target-language unselected" id="ita-t">Italian</li>
+                        </ul>
+                    </div>
+                    <div class="language-list3 col-12 col-sm-12 col-md-4">
+                        <ul>
+                            <li class="target-language unselected" id="jpn-t">Japanese</li>
+                            <li class="target-language unselected" id="kor-t">Korean</li>
+                            <li class="target-language unselected" id="pas-t">Pashto</li>
+                            <li class="target-language unselected" id="pol-t">Polish</li>
+                            <li class="target-language unselected" id="port-t">Portuguese</li>
+                            <li class="target-language unselected" id="rus-t">Russian</li>
+                            <li class="target-language unselected" id="spa-t">Spanish</li>
+                            <li class="target-language unselected" id="tag-t">Tagalog</li>
+                            <li class="target-language unselected" id="viet-t">Vietnamese</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="cart"></div>
-        <div class="turnaround">
-            <strong>How soon would you need to receive the translation(s)?</strong>
-            <div class="turnaround-responses">
-                <p id="asap" class="unselected">As soon as possible</p>
-                <p id="notrush" class="unselected">I'm not in a rush</p>
+            <div id="cart"></div>
+            <div class="turnaround">
+                <strong>How soon would you need to receive the translation(s)?</strong>
+                <div class="turnaround-responses">
+                    <p id="asap" class="unselected">As soon as possible</p>
+                    <p id="notrush" class="unselected">I'm not in a rush</p>
+                </div>
             </div>
-        </div>
-        <div class="submit">
-            <button id="submit">SUBMIT</button>
+            <div class="submit">
+                <button id="submit">SUBMIT</button>
+            </div>
         </div>
         <div id="results"></div>
     </div>
