@@ -1789,3 +1789,6 @@ ul {
     }
 }
 
+#modal {
+    display: none;
+}

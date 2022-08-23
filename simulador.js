@@ -51,7 +51,7 @@ function selectAndUnselectTurnaround() {
 function avoidErrors(e) {
     if (e === undefined) {
         console.log(e);
-        alert("Error. Please ensure you have selected a file, source language, target language, turnaround and wordcount.");
+        modal.style.display = "block";
         return false;
     } else {
         return true;
@@ -61,6 +61,24 @@ function avoidErrors(e) {
 function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+let exitLoop = false;
+
+function compareLanguages () {
+    for (let i = 0; i < selectedSourceLanguages.length; i++) {
+        if (capitalizeFirstLetter(sourceLanguageSelected) === selectedSourceLanguages[i]) {
+            console.log(selectedSourceLanguages[i]);
+            for (let j = 0; j < selectedTargetLanguages.length || exitLoop === true; j++) {
+                if (capitalizeFirstLetter(targetLanguageSelected) === selectedTargetLanguages[j]) {
+                    console.log(selectedTargetLanguages[j]);
+                    exitLoop = true;
+                    return true;
+                }
+            } 
+        }
+    }
+}
+
 
 function addToCart() {
     let serviceLine = "";
@@ -75,12 +93,18 @@ function addToCart() {
             if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
 
                 if (isNaN(totalAmount)) {
-                    alert("Unfortunately, we do not provide translation services for the selected language pair at this time. Feel free to contact us using our Contact Form to check if we can accomodate your request.");
+                    modal.style.display = "block";
+                    modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
                     totalAmount = 0;
-
+                } else if (compareLanguages()) {
+                    modal.style.display = "block";
+                    modalBody.innerText = "You have already selected this language pair.";
+                    totalAmount = 0;
+                    exitLoop = false;
                 } else {
 
                     finalTotalAmount = totalAmount + finalTotalAmount;
+                    console.log(compareLanguages());
 
                 selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
                 selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
@@ -110,6 +134,23 @@ function addToCart() {
         container.innerHTML = serviceLine;
     }
 }
+
+//MODAL
+
+const modal = document.getElementById("modal");
+const closeButtonModal = document.getElementById("close-button");
+const goBackButtonModal = document.getElementById("go-back-button");
+closeButtonModal.onclick = () => {
+    modal.style.display = "none";
+}
+
+goBackButtonModal.onclick = () => {
+    modal.style.display = "none";
+}
+
+
+const modalBody = document.getElementById("modal-body");
+
 
 //EVENTO DE ENTER
 document.addEventListener('keypress', function (e) {
@@ -698,3 +739,16 @@ console.log("We offer the following service that matches your search: " + search
 
 const filterResult = services.filter((language) => language.target === "english");
 console.log(filterResult); 
+
+
+
+
+
+
+
+
+
+
+
+
+
