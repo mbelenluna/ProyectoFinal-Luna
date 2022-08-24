@@ -149,8 +149,6 @@ function addToCart() {
             amount: totalAmount
         });
 
-        localStorage.setItem("selectedServices", JSON.stringify(selectedServices));
-
         console.log(servicesSelected);
         container.innerHTML = serviceLine;
 
