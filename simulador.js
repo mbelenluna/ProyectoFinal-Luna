@@ -83,7 +83,7 @@ let serviceLines = "";
 const servicesSelected = [];
 
 function addToCart() {
-    let serviceLine = "";
+    let serviceLine = document.createElement("p");
 
     console.log(sourceLanguageSelected + targetLanguageSelected + fileName + totalWordcount);
 
@@ -140,7 +140,7 @@ function addToCart() {
             finalTotalAmount = Math.round(finalTotalAmount);
 
             for (i = 0; i < selectedSourceLanguages.length; i++) {
-                serviceLine = serviceLine + `
+                serviceLine.innerHTML = `
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
             }
         }
@@ -152,8 +152,7 @@ function addToCart() {
         });
 
         console.log(servicesSelected);
-        container.innerHTML = serviceLine;
-
+        container.appendChild(serviceLine);
 
     }
 }
