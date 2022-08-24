@@ -79,61 +79,94 @@ function compareLanguages () {
     }
 }
 
+let serviceLines = "";
+const servicesSelected = [];
 
 function addToCart() {
     let serviceLine = "";
 
     console.log(sourceLanguageSelected + targetLanguageSelected + fileName + totalWordcount);
 
-            let wordCount = document.getElementById("wordcount").value;
-            console.log(wordCount);
-            totalWordcount = parseInt(wordCount);
-            totalAmount = calculatePrice();
+    console.log(wordCount);
 
-            if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
+    if (localStorage.getItem("wordcount") != null) {
+        wordCount = localStorage.getItem("wordcount");
+        wordCount = parseInt(wordCount);
+        console.log(wordCount);
+    } else {
+        wordCount = document.getElementById("wordcount").value;
+    }
 
-                if (isNaN(totalAmount)) {
-                    modal.style.display = "block";
-                    modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
-                    totalAmount = 0;
-                } else if (compareLanguages()) {
-                    modal.style.display = "block";
-                    modalBody.innerText = "You have already selected this language pair.";
-                    totalAmount = 0;
-                    exitLoop = false;
-                } else {
+    if (document.getElementById("wordcount").value.length > 0) {
+        wordCount = document.getElementById("wordcount").value;
+        localStorage.setItem("wordcount", wordCount);
+    }
 
-                    finalTotalAmount = totalAmount + finalTotalAmount;
-                    console.log(compareLanguages());
+    localStorage.setItem("wordcount", wordCount);
+    console.log(wordCount);
+    totalWordcount = parseInt(wordCount);
+    totalAmount = calculatePrice();
+    calculateMinimumFee();
 
-                selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
-                selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
-                rate = calculateRate();
-        
-                console.log(rate);
+    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
 
-                //Establezco tarifa mínima
+        if (isNaN(totalAmount)) {
+            modal.style.display = "block";
+            modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
+            totalAmount = 0;
+        } else if (compareLanguages()) {
+            modal.style.display = "block";
+            modalBody.innerText = "You have already selected this language pair.";
+            totalAmount = 0;
+            exitLoop = false;
+        } else {
 
-                if (calculatePrice() < 50) {
-                    totalAmount = 50;
-                } else {
-                    totalAmount = calculatePrice();
-                }
-                totalAmount = Math.round(totalAmount);
-                console.log(finalTotalAmount);
+            finalTotalAmount = totalAmount + finalTotalAmount;
+            console.log(compareLanguages());
 
-                //Redondeo el monto
+            selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
+            selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
+            rate = calculateRate();
 
-                finalTotalAmount = Math.round(finalTotalAmount);
+            console.log(rate);
 
-                    for (i = 0; i < selectedSourceLanguages.length; i++) {
-                    serviceLine = serviceLine + `
-                    <li>Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
-                    }
-                }
+            totalAmount = Math.round(totalAmount);
+            console.log(finalTotalAmount);
+
+            //Redondeo el monto
+
+            finalTotalAmount = Math.round(finalTotalAmount);
+
+            for (i = 0; i < selectedSourceLanguages.length; i++) {
+                serviceLine = serviceLine + `
+                    <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
+            }
+        }
+
+        servicesSelected.push({
+            source: sourceLanguageSelected,
+            target: targetLanguageSelected,
+            amount: totalAmount
+        });
+
+        localStorage.setItem("selectedServices", JSON.stringify(selectedServices));
+
+        console.log(servicesSelected);
         container.innerHTML = serviceLine;
+
+
     }
 }
+
+function calculateMinimumFee () {
+    if (calculatePrice() < 50) {
+        totalAmount = 50;
+    } else {
+        totalAmount = calculatePrice();
+    }
+}
+
+
 
 //MODAL
 
@@ -161,6 +194,7 @@ document.addEventListener('keypress', function (e) {
 
 //Variables
 
+let wordCount;
 let sourceLanguageSelected;
 let targetLanguageSelected;
 let turnaround;
@@ -172,6 +206,7 @@ let finalResult;
 let finalTotalAmount = 0;
 const selectedSourceLanguages = [];
 const selectedTargetLanguages = [];
+let num = 0;
 
 //Tasa por palabra, objetos creados con clase constructora
 
@@ -312,9 +347,24 @@ let results = document.getElementById("results");
 
 //Filename en DOM
 
+if (localStorage.getItem("filename" != null)) {
+    fileName = localStorage.getItem("filename");
+} else {
+    fileName = document.getElementById('myFile');
+}
+
+if (document.getElementById('myFile').length > 0) {
+    fileName = document.getElementById('myFile');
+    localStorage.setItem("filename", fileName);
+}
+
 let fileSelected = document.getElementById('myFile').onchange = function () {
     fileName = this.value;
-};
+    localStorage.setItem("filename", fileName);
+}
+
+fileName = localStorage.getItem("filename");
+console.log(fileName);
 
 //EVENTOS PARA SOURCE LANGUAGE 
 
@@ -739,8 +789,6 @@ console.log("We offer the following service that matches your search: " + search
 
 const filterResult = services.filter((language) => language.target === "english");
 console.log(filterResult); 
-
-
 
 
 
