@@ -16,32 +16,32 @@ body {
 
 @font-face {
     font-family: parrafos;
-    src: url(../fonts/Heebo-Regular.ttf);
+    src: url(fonts/Heebo-Regular.ttf);
 }
 
 @font-face {
     font-family: titulos1;
-    src: url(../fonts/Pacifico-Regular.ttf);
+    src: url(fonts/Pacifico-Regular.ttf);
 }
 
 @font-face {
     font-family: titulos2;
-    src: url(../fonts/Pacifico-Regular.ttf);
+    src: url(fonts/Pacifico-Regular.ttf);
 }
 
 @font-face {
     font-family: titulos3;
-    src: url(../fonts/Pacifico-Regular.ttf);
+    src: url(fonts/Pacifico-Regular.ttf);
 }
 
 @font-face {
     font-family: links;
-    src: url(../fonts/Heebo-SemiBold.ttf);
+    src: url(fonts/Heebo-SemiBold.ttf);
 }
 
 @font-face {
     font-family: testimonials;
-    src: url(../../fonts/BIZUDPMincho-Regular.ttf);
+    src: url(fonts/BIZUDPMincho-Regular.ttf);
 }
 
 h1 {
@@ -706,7 +706,7 @@ ul {
 }
 
 .headline-contactus {
-    background-image: url(../images/contact-us-image.webp);
+    background-image: url(images/contact-us-image.webp);
     background-size: cover;
     padding: 10rem 3rem;
 }

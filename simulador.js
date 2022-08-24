@@ -165,8 +165,6 @@ function calculateMinimumFee () {
     }
 }
 
-
-
 //MODAL
 
 const modal = document.getElementById("modal");
@@ -695,10 +693,6 @@ vietT.onclick = () => {
     vietT.className = "selected";
     console.log(targetLanguageSelected);
 }
-
-const selectedServices = [];
-selectedServices.push(sourceLanguageSelected);
-selectedServices.push(targetLanguageSelected);
 
 const cart = document.getElementById("cart");
 addButton = document.createElement("button");
