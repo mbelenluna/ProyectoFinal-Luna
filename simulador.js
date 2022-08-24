@@ -114,11 +114,13 @@ function addToCart() {
             modal.style.display = "block";
             modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
             totalAmount = 0;
+            container.innerHTML = serviceLine;
         } else if (compareLanguages()) {
             modal.style.display = "block";
             modalBody.innerText = "You have already selected this language pair.";
             totalAmount = 0;
             exitLoop = false;
+            container.innerHTML = serviceLine;
         } else {
 
             finalTotalAmount = totalAmount + finalTotalAmount;
