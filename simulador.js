@@ -1,8 +1,12 @@
 //FUNCIONES
 
+//Para calcular el monto total por cada servicio
+
 function calculatePrice() {
     return totalWordcount * calculateRate();
 }
+
+//Para identificar la tarifa por palabra según el par de idiomas seleccionado
 
 function calculateRate() {
     for (let i = 0; i < services.length; i++) {
@@ -14,6 +18,8 @@ function calculateRate() {
         }
     }
 }
+
+//Para que se deseleccionen los demás botones al hacer clic en un botón
 
 function selectAndUnselectSource() {
     sourceLanguagesList.forEach((language) => {
@@ -48,6 +54,8 @@ function selectAndUnselectTurnaround() {
     });
 }
 
+//Debug para evitar que el usuario continúe si no seleccionó archivo, par de idiomas, etc.
+
 function avoidErrors(e) {
     if (e === undefined) {
         console.log(e);
@@ -58,9 +66,13 @@ function avoidErrors(e) {
     }
 }
 
+//Para poner mayúscula a la primera letra de un string
+
 function capitalizeFirstLetter (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+//Para comparar el par de idioma elegido con los pares de idiomas anteriormente agregados
 
 let exitLoop = false;
 
@@ -78,6 +90,8 @@ function compareLanguages () {
         }
     }
 }
+
+//Para agregar un par de idiomas al carrito
 
 let serviceLines = "";
 const servicesSelected = [];
@@ -157,6 +171,8 @@ function addToCart() {
     }
 }
 
+//Para establecer la tarifa mínima por cada par de palabras
+
 function calculateMinimumFee () {
     if (calculatePrice() < 50) {
         totalAmount = 50;
@@ -165,7 +181,7 @@ function calculateMinimumFee () {
     }
 }
 
-//MODAL
+//MODAL, variables, DOM y eventos
 
 const modal = document.getElementById("modal");
 const closeButtonModal = document.getElementById("close-button");
@@ -178,11 +194,9 @@ goBackButtonModal.onclick = () => {
     modal.style.display = "none";
 }
 
-
 const modalBody = document.getElementById("modal-body");
 
-
-//EVENTO DE ENTER
+//EVENTO DE ENTER para hacer clic en submit
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         submitButton.onclick();
@@ -272,8 +286,8 @@ const services = [];
 
 services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, engind, indeng, engbur, bureng, engcam, cameng, engsch, scheng, engtch, tcheng, engcro, croeng, engdar, dareng, engdut, duteng, engdar, dareng, engdut, duteng, engfar, fareng, engfreu, freueng, engger, gereng, enghin, hineng, engita, itaeng, engjpn, jpneng, engkor, koreng, engpas, paseng, engpol, poleng, engport, porteng, engrus, ruseng, engspa, spaeng, engtag, tageng, engviet, vieteng);
 
-//DOM
-//Source languages
+//DOM de los botones de los idiomas fuente (source languages)
+
 let afrS = document.getElementById("afr-s");
 let amhS = document.getElementById("amh-s");
 let arcS = document.getElementById("arc-s");
@@ -305,7 +319,7 @@ let vietS = document.getElementById("viet-s");
 const sourceLanguagesList = []
 sourceLanguagesList.push(afrS, amhS, arcS, armS, indS, burS, camS, schS, tchS, croS, darS, dutS, engS, farS, freuS, gerS, farS, hinS, itaS, jpnS, korS, pasS, polS, portS, rusS, spaS, tagS, vietS);
 
-//Target languages
+//DOM de los botones de los idiomas objetivo (Target languages)
 
 let afrT = document.getElementById("afr-t");
 let amhT = document.getElementById("amh-t");
@@ -338,11 +352,11 @@ let vietT = document.getElementById("viet-t");
 const targetLanguagesList = [];
 targetLanguagesList.push(afrT, amhT, arcT, armT, indT, burT, camT, schT, tchT, croT, darT, dutT, engT, farT, freuT, gerT, hinT, itaT, jpnT, korT, pasT, polT, portT, rusT, spaT, tagT, vietT);
 
-//Resultados DOM
+//Resultados DOM donde se mostrará monto total
 
 let results = document.getElementById("results");
 
-//Filename en DOM
+//Nombre del archivo en DOM, evento y local storage
 
 if (localStorage.getItem("filename" != null)) {
     fileName = localStorage.getItem("filename");
@@ -363,7 +377,7 @@ let fileSelected = document.getElementById('myFile').onchange = function () {
 fileName = localStorage.getItem("filename");
 console.log(fileName);
 
-//EVENTOS PARA SOURCE LANGUAGE 
+//EVENTOS PARA SOURCE LANGUAGES
 
 afrS.onclick = () => {
     sourceLanguageSelected = "afrikaans";
@@ -529,7 +543,7 @@ vietS.onclick = () => {
     console.log(sourceLanguageSelected);
 }
 
-//EVENTOS PARA TARGET LANGUAGE
+//EVENTOS PARA TARGET LANGUAGES
 
 afrT.onclick = () => {
     targetLanguageSelected = "afrikaans";
@@ -708,7 +722,7 @@ addButton.onclick = () => {
     addToCart();
 }
 
-//DOM turnaround
+//Botones en DOM para el tiempo elegido (turnaround), DOM y eventos
 
 let asap = document.getElementById("asap");
 let notrush = document.getElementById("notrush");
@@ -729,7 +743,7 @@ notrush.onclick = () => {
     console.log(turnaround);
 }
 
-//SUBMIT, debug y muestro resultados
+//SUBMIT (botón para finalizar), debug y muestro resultados
 
 submitButton = document.getElementById("submit");
 
@@ -740,7 +754,7 @@ submitButton.onclick = () => {
         //Establezco tarifa de urgencia
 
         if (turnaround == "As soon as possible") {
-        finalTotalAmount = finalTotalAmount * 1.30;
+            finalTotalAmount = finalTotalAmount * 1.30;
         }
 
         //Muestro los resultados en el HTML
@@ -759,9 +773,8 @@ submitButton.onclick = () => {
     <input class="email" type="text">
     <button id="send"><p>Send</p></button>`;
         results.append(finalResult);
-        }
     }
-
+}
 
 
 
