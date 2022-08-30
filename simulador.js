@@ -355,8 +355,14 @@ let results = document.getElementById("results");
 
 //Nombre del archivo en DOM, evento y local storage
 
-if (localStorage.getItem("filename" != null)) {
+let uploadFileButton = document.getElementById("upload-file");
+let docu;
+
+if (localStorage.getItem("filename") !== null) {
     fileName = localStorage.getItem("filename");
+    docu = document.createElement("p");
+    docu.innerText = fileName;
+    uploadFileButton.appendChild(docu);
 } else {
     fileName = document.getElementById('myFile');
 }
@@ -369,6 +375,10 @@ if (document.getElementById('myFile').length > 0) {
 let fileSelected = document.getElementById('myFile').onchange = function () {
     fileName = this.value;
     localStorage.setItem("filename", fileName);
+    uploadFileButton.removeChild(docu);
+    docu = document.createElement("p");
+    docu.innerText = fileName;
+    uploadFileButton.appendChild(docu);
 }
 
 fileName = localStorage.getItem("filename");
