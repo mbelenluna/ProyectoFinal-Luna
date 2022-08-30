@@ -1790,7 +1790,8 @@ form #myFile {
     color: white;
     font-size: 18px;
     border-radius: 10px;
-    width: 200px;
+    width: 127px;
+    padding-top: 1rem;
 }
 
 #upload-file {
