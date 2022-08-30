@@ -375,10 +375,13 @@ if (document.getElementById('myFile').length > 0) {
 let fileSelected = document.getElementById('myFile').onchange = function () {
     fileName = this.value;
     localStorage.setItem("filename", fileName);
-    uploadFileButton.removeChild(docu);
+    if (docu !== undefined) {
+        uploadFileButton.removeChild(docu);
+    } else {
     docu = document.createElement("p");
     docu.innerText = fileName;
     uploadFileButton.appendChild(docu);
+    }
 }
 
 fileName = localStorage.getItem("filename");
@@ -780,6 +783,9 @@ submitButton.onclick = () => {
     <input class="email" type="text">
     <button id="send"><p>Send</p></button>`;
         results.append(finalResult);
+
+        //Borro file name y wordcount del localStorage
+        localStorage.clear();
     }
 }
 

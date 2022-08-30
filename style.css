@@ -1784,14 +1784,13 @@ ul {
 }
 
 form #myFile {
-    padding: 0 1rem;
+    padding: 1rem;
     background-color: hsl(277, 90%, 45%);
     font-family: parrafos;
     color: white;
     font-size: 18px;
     border-radius: 10px;
     width: 127px;
-    padding-top: 1rem;
 }
 
 #upload-file {
