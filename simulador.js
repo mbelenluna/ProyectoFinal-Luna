@@ -134,6 +134,12 @@ const addToCart = () => {
             container.appendChild(serviceLine);
         } else {
 
+            servicesSelected.push({
+                source: sourceLanguageSelected,
+                target: targetLanguageSelected,
+                amount: totalAmount
+            });
+
             finalTotalAmount += totalAmount;
             console.log(compareLanguages());
 
@@ -143,24 +149,16 @@ const addToCart = () => {
 
             console.log(rate);
 
-            totalAmount = Math.round(finalTotalAmount);
+            finalTotalAmount = Math.round(finalTotalAmount);
             console.log(finalTotalAmount);
 
             //Redondeo el monto
-
-            finalTotalAmount = Math.round(finalTotalAmount);
 
             for (let i = 0; i < selectedSourceLanguages.length; i++) {
                 serviceLine.innerHTML = `
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
             }
         }
-
-        servicesSelected.push({
-            source: sourceLanguageSelected,
-            target: targetLanguageSelected,
-            amount: totalAmount
-        });
 
         console.log(...servicesSelected);
         container.appendChild(serviceLine);
@@ -173,8 +171,6 @@ const addToCart = () => {
 const calculateMinimumFee = () => {
     calculatePrice() < 50 ? totalAmount = 50 : totalAmount = calculatePrice();
 }
-
-
 
 //MODAL, variables, DOM y eventos
 
@@ -385,7 +381,6 @@ let fileSelected = document.getElementById('myFile').onchange = function () {
 }
 
 fileName = localStorage.getItem("filename");
-console.log(fileName);
 
 //EVENTOS PARA SOURCE LANGUAGES
 
