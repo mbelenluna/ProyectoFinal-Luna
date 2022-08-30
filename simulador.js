@@ -2,13 +2,13 @@
 
 //Para calcular el monto total por cada servicio
 
-function calculatePrice() {
+const calculatePrice = () => {
     return totalWordcount * calculateRate();
-}
+};
 
 //Para identificar la tarifa por palabra según el par de idiomas seleccionado
 
-function calculateRate() {
+const calculateRate = () => {
     for (let i = 0; i < services.length; i++) {
         let sourceMatch = services[i].source;
         let targetMatch = services[i].target;
@@ -21,7 +21,7 @@ function calculateRate() {
 
 //Para que se deseleccionen los demás botones al hacer clic en un botón
 
-function selectAndUnselectSource() {
+const selectAndUnselectSource = () => {
     sourceLanguagesList.forEach((language) => {
         if (language.className === "selected") {
             language.classList.remove("selected");
@@ -32,7 +32,7 @@ function selectAndUnselectSource() {
     });
 }
 
-function selectAndUnselectTarget() {
+const selectAndUnselectTarget = () => {
     targetLanguagesList.forEach((language) => {
         if (language.className === "selected") {
             language.classList.remove("selected");
@@ -43,7 +43,7 @@ function selectAndUnselectTarget() {
     });
 }
 
-function selectAndUnselectTurnaround() {
+const selectAndUnselectTurnaround = () => {
     turnaroundList.forEach((time) => {
         if (time.className === "selected") {
             time.classList.remove("selected");
@@ -56,7 +56,7 @@ function selectAndUnselectTurnaround() {
 
 //Debug para evitar que el usuario continúe si no seleccionó archivo, par de idiomas, etc.
 
-function avoidErrors(e) {
+const avoidErrors = (e) => {
     if (e === undefined) {
         console.log(e);
         modal.style.display = "block";
@@ -68,7 +68,7 @@ function avoidErrors(e) {
 
 //Para poner mayúscula a la primera letra de un string
 
-function capitalizeFirstLetter (string) {
+const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -76,7 +76,7 @@ function capitalizeFirstLetter (string) {
 
 let exitLoop = false;
 
-function compareLanguages () {
+const compareLanguages = () => {
     for (let i = 0; i < selectedSourceLanguages.length; i++) {
         if (capitalizeFirstLetter(sourceLanguageSelected) === selectedSourceLanguages[i]) {
             console.log(selectedSourceLanguages[i]);
@@ -93,10 +93,7 @@ function compareLanguages () {
 
 //Para agregar un par de idiomas al carrito
 
-let serviceLines = "";
-const servicesSelected = [];
-
-function addToCart() {
+const addToCart = () => {
     let serviceLine = document.createElement("p");
 
     console.log(sourceLanguageSelected + targetLanguageSelected + fileName + totalWordcount);
@@ -137,7 +134,7 @@ function addToCart() {
             container.appendChild(serviceLine);
         } else {
 
-            finalTotalAmount = totalAmount + finalTotalAmount;
+            finalTotalAmount += totalAmount;
             console.log(compareLanguages());
 
             selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
@@ -146,14 +143,14 @@ function addToCart() {
 
             console.log(rate);
 
-            totalAmount = Math.round(totalAmount);
+            totalAmount = Math.round(finalTotalAmount);
             console.log(finalTotalAmount);
 
             //Redondeo el monto
 
             finalTotalAmount = Math.round(finalTotalAmount);
 
-            for (i = 0; i < selectedSourceLanguages.length; i++) {
+            for (let i = 0; i < selectedSourceLanguages.length; i++) {
                 serviceLine.innerHTML = `
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
             }
@@ -165,21 +162,19 @@ function addToCart() {
             amount: totalAmount
         });
 
-        console.log(servicesSelected);
+        console.log(...servicesSelected);
         container.appendChild(serviceLine);
 
     }
 }
 
-//Para establecer la tarifa mínima por cada par de palabras
+//Para establecer la tarifa mínima por cada par de palabras / TERNARIO 
 
-function calculateMinimumFee () {
-    if (calculatePrice() < 50) {
-        totalAmount = 50;
-    } else {
-        totalAmount = calculatePrice();
-    }
+const calculateMinimumFee = () => {
+    calculatePrice() < 50 ? totalAmount = 50 : totalAmount = calculatePrice();
 }
+
+
 
 //MODAL, variables, DOM y eventos
 
@@ -218,6 +213,8 @@ let finalTotalAmount = 0;
 const selectedSourceLanguages = [];
 const selectedTargetLanguages = [];
 let num = 0;
+let serviceLines = "";
+const servicesSelected = [];
 
 //Tasa por palabra, objetos creados con clase constructora
 
@@ -775,34 +772,4 @@ submitButton.onclick = () => {
         results.append(finalResult);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Uso de Find y Filter 
-
-const searchResult = services.find((language) => language.target === "polish");
-console.log("We offer the following service that matches your search: " + searchResult.source + " into " + searchResult.target + ": " + searchResult.rate);
-
-const filterResult = services.filter((language) => language.target === "english");
-console.log(filterResult); 
-
-
-
-
-
-
-
-
-
-
 
