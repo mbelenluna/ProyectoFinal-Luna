@@ -2,9 +2,9 @@
 
 //Para calcular el monto total por cada servicio
 
-const calculatePrice = () => {
+function calculatePrice() {
     return totalWordcount * calculateRate();
-};
+}
 
 //Para identificar la tarifa por palabra según el par de idiomas seleccionado
 
@@ -118,7 +118,7 @@ const addToCart = () => {
     totalWordcount = parseInt(wordCount);
     totalAmount = calculatePrice();
     calculateMinimumFee();
-
+    
     if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
 
         if (isNaN(totalAmount)) {
@@ -151,6 +151,14 @@ const addToCart = () => {
 
             finalTotalAmount = Math.round(finalTotalAmount);
             console.log(finalTotalAmount);
+
+            Toastify({
+
+                text: "You selected " + capitalizeFirstLetter(sourceLanguageSelected) + " into " + capitalizeFirstLetter(targetLanguageSelected),
+        
+                duration: 3000
+        
+                }).showToast();
 
             //Redondeo el monto
 
