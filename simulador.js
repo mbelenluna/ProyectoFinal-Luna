@@ -96,10 +96,6 @@ const compareLanguages = () => {
 const addToCart = () => {
     let serviceLine = document.createElement("p");
 
-    console.log(sourceLanguageSelected + targetLanguageSelected + fileName + totalWordcount);
-
-    console.log(wordCount);
-
     if (localStorage.getItem("wordcount") != null) {
         wordCount = localStorage.getItem("wordcount");
         wordCount = parseInt(wordCount);
@@ -376,19 +372,52 @@ if (document.getElementById('myFile').length > 0) {
     localStorage.setItem("filename", fileName);
 }
 
-let fileSelected = document.getElementById('myFile').onchange = function () {
+document.getElementById('myFile').onchange = function () {
     fileName = this.value;
     localStorage.setItem("filename", fileName);
+    console.log(fileName);
     if (docu !== undefined) {
         uploadFileButton.removeChild(docu);
-    } else {
+    } 
     docu = document.createElement("p");
     docu.innerText = fileName;
     uploadFileButton.appendChild(docu);
-    }
 }
 
+
 fileName = localStorage.getItem("filename");
+
+const input = document.getElementById("myFile");
+input.addEventListener('change', function (e) {
+    console.log(input.files)
+    const reader = new FileReader();
+    reader.onload = function () {
+        const lines = reader.result.split('\n').map(function (line) {
+            return line.split(",");
+        });
+        console.log(lines);
+    }
+    reader.readAsText(input.files[0]);
+}, false)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //EVENTOS PARA SOURCE LANGUAGES
 
@@ -775,6 +804,20 @@ submitButton.onclick = () => {
         let mainsection = document.getElementById("main-section");
         mainsection.innerHTML = "";
         results.append(container);
+
+        //Botón para descargar el presupuesto en PDF
+
+        let downloadQuoteButton = document.createElement("button");
+        downloadQuoteButton.classList.add("download-button");
+        downloadQuoteButton.innerText = "Download Quote";
+        results.append(downloadQuoteButton);
+        downloadQuoteButton.onclick = () => {
+            console.log("It's working");
+            window.jsPDF = window.jspdf.jsPDF;
+            const doc = new jsPDF();
+            doc.text("Rolling Translations\n\n" + container.innerText + "\n\nTotal Wordcount: " + totalWordcount + "\n\nFile Name: " + fileName + "\n\nTotal Price: $" + finalTotalAmount, 10, 10);
+            doc.save("QUOTE.pdf");
+        }
         finalResult = document.createElement("div");
         finalResult.className = "final-result";
         finalResult.innerHTML = `\n<p>The total amount is <b>$` + finalTotalAmount + `</b>.</p>

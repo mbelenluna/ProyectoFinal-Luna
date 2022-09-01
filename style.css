@@ -1785,7 +1785,6 @@ ul {
 
 form #myFile {
     padding: 1rem;
-    background-color: hsl(277, 90%, 45%);
     font-family: parrafos;
     color: white;
     font-size: 18px;
@@ -1796,7 +1795,14 @@ form #myFile {
 #upload-file {
     border: black solid 0.5px;
     margin: 1rem;
+    color: black;
+    position: relative;
+}
+
+.download-button {
     background-color: hsl(277, 90%, 45%);
     color: white;
-    position: relative;
+    font-size: 18px;
+    padding: 3px;
+    margin-bottom: 1rem;
 }
