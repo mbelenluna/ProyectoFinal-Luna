@@ -1794,6 +1794,7 @@ form #myFile {
 
 #upload-file {
     border: black solid 0.5px;
+    padding-right: 1rem;
     margin: 1rem;
     color: black;
     position: relative;
