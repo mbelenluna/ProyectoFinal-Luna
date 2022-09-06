@@ -93,6 +93,44 @@ const compareLanguages = () => {
 
 //Para agregar un par de idiomas al carrito
 
+let arrayOfWords = [];
+let stringOfWords;
+let wordcountOfFile;
+
+const input = document.getElementById("myFile");
+input.addEventListener('change', function (e) {
+    console.log(input.files)
+    const reader = new FileReader();
+    reader.onload = function () {
+        const lines = reader.result.split('\n').map(function (line) {
+        return line.split(" ");
+    });
+    console.log(lines);
+    arrayOfWords = lines.toString();
+    console.log(arrayOfWords);
+    stringOfWords = arrayOfWords.replace(/"/g, "");
+    stringOfWords = stringOfWords.replace(/,/g, " ");
+    console.log(stringOfWords);
+    wordcountOfFile = stringOfWords.split(" ");
+    wordCount = wordcountOfFile.length;
+    localStorage.setItem("wordcount", wordCount);
+    }
+    reader.readAsText(input.files[0]);
+}, false)
+
+const sendEmail = () => {
+    let data = {
+        from_name : document.getElementById("name").value,
+        email_id : document.getElementById("email").value,
+        service_container : container.innerText,
+        file : input,
+    }
+    emailjs.send("service_byiyb7y", "template_r27difz", data).then(function (response) {
+        modal.style.display = "block";
+        modalBody.innerText = "Thank you for your inquiry! An agent will be in touch with you shortly.";
+    })
+}
+
 const addToCart = () => {
     let serviceLine = document.createElement("p");
 
@@ -100,16 +138,8 @@ const addToCart = () => {
         wordCount = localStorage.getItem("wordcount");
         wordCount = parseInt(wordCount);
         console.log(wordCount);
-    } else {
-        wordCount = document.getElementById("wordcount").value;
-    }
+    } 
 
-    if (document.getElementById("wordcount").value.length > 0) {
-        wordCount = document.getElementById("wordcount").value;
-        localStorage.setItem("wordcount", wordCount);
-    }
-
-    localStorage.setItem("wordcount", wordCount);
     console.log(wordCount);
     totalWordcount = parseInt(wordCount);
     totalAmount = calculatePrice();
@@ -387,18 +417,9 @@ document.getElementById('myFile').onchange = function () {
 
 fileName = localStorage.getItem("filename");
 
-const input = document.getElementById("myFile");
-input.addEventListener('change', function (e) {
-    console.log(input.files)
-    const reader = new FileReader();
-    reader.onload = function () {
-        const lines = reader.result.split('\n').map(function (line) {
-            return line.split(",");
-        });
-        console.log(lines);
-    }
-    reader.readAsText(input.files[0]);
-}, false)
+
+
+
 
 
 
@@ -812,7 +833,6 @@ submitButton.onclick = () => {
         downloadQuoteButton.innerText = "Download Quote";
         results.append(downloadQuoteButton);
         downloadQuoteButton.onclick = () => {
-            console.log("It's working");
             window.jsPDF = window.jspdf.jsPDF;
             const doc = new jsPDF();
             doc.text("Rolling Translations\n\n" + container.innerText + "\n\nTotal Wordcount: " + totalWordcount + "\n\nFile Name: " + fileName + "\n\nTotal Price: $" + finalTotalAmount, 10, 10);
@@ -824,11 +844,17 @@ submitButton.onclick = () => {
     <h2>Would you like to proceed?</h2>
     <p>If you would like us to proceed with your request, please enter your name and email address below.</p>
     <label>Full Name:</label>
-    <input class="name" type="text">
+    <input id="name" type="text" placeholder="Your Full Name" required>
     <label>Email Address:</label>
-    <input class="email" type="text">
+    <input id="email" type="text" placeholder="Your Email Address" required>
     <button id="send"><p>Send</p></button>`;
         results.append(finalResult);
+
+        let sendButton = document.getElementById("send");
+        sendButton.onclick = () => {
+            sendEmail();
+            sendButton.innerText = "Please wait...";
+        }
 
         //Borro file name y wordcount del localStorage
         localStorage.clear();

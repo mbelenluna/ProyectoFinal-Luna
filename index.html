@@ -11,6 +11,14 @@
     <!-- Tostify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+    <!-- Email JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init('UEfZYgNwUpb2DJhXo');
+        })();
+    </script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
@@ -128,15 +136,11 @@
             <div class="upload">
                 <div id="upload-file">
                     <form action="/action_page.php" id="upload-file-form">
-                        <input type="file" id="myFile" accept="application/pdf,application/msword,
-                        application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <input type="file" id="myFile" accept=".csv, .txt">
                     </form>
                 </div>
             </div>
-            <div class="wordcount">
-                <strong>Please insert the total word count of your files.</strong>
-                <input type="number" id="wordcount">
-            </div>
+
             <div class="select-source-language">
                 <strong>Please select the source language.</strong>
                 <div class="row">
