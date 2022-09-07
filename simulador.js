@@ -2,7 +2,7 @@
 
 //Para calcular el monto total por cada servicio
 
-function calculatePrice() {
+const calculatePrice = () => {
     return totalWordcount * calculateRate();
 }
 
@@ -18,6 +18,11 @@ const calculateRate = () => {
         }
     }
 }
+
+const getAmount = (idNum) => {
+    return servicesSelected[idNum].amount;
+}
+
 
 //Para que se deseleccionen los demás botones al hacer clic en un botón
 
@@ -52,6 +57,26 @@ const selectAndUnselectTurnaround = () => {
             time.className = "unselected";
         }
     });
+}
+
+// Funciones de eventos para los botones de idiomas
+
+const sourceLanguageEvent = (langTag, lang) => {
+    langTag.onclick = () => {
+        sourceLanguageSelected = lang;
+        selectAndUnselectSource();
+        langTag.className = "selected";
+        console.log(sourceLanguageSelected);
+    }
+}
+
+const targetLanguageEvent = (langTag, lang) => {
+    langTag.onclick = () => {
+        targetLanguageSelected = lang;
+        selectAndUnselectTarget();
+        langTag.className = "selected";
+        console.log(targetLanguageSelected);
+    }
 }
 
 //Debug para evitar que el usuario continúe si no seleccionó archivo, par de idiomas, etc.
@@ -105,15 +130,13 @@ input.addEventListener('change', function (e) {
         const lines = reader.result.split('\n').map(function (line) {
         return line.split(" ");
     });
-    console.log(lines);
     arrayOfWords = lines.toString();
-    console.log(arrayOfWords);
     stringOfWords = arrayOfWords.replace(/"/g, "");
     stringOfWords = stringOfWords.replace(/,/g, " ");
-    console.log(stringOfWords);
     wordcountOfFile = stringOfWords.split(" ");
     wordCount = wordcountOfFile.length;
     localStorage.setItem("wordcount", wordCount);
+    console.log(wordCount);
     }
     reader.readAsText(input.files[0]);
 }, false)
@@ -163,11 +186,10 @@ const addToCart = () => {
             servicesSelected.push({
                 source: sourceLanguageSelected,
                 target: targetLanguageSelected,
-                amount: totalAmount
+                amount: totalAmount,
             });
 
             finalTotalAmount += totalAmount;
-            console.log(compareLanguages());
 
             selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
             selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
@@ -186,11 +208,20 @@ const addToCart = () => {
         
                 }).showToast();
 
-            //Redondeo el monto
+            //Contenedor del carrito con botón para remover el servicio
 
             for (let i = 0; i < selectedSourceLanguages.length; i++) {
                 serviceLine.innerHTML = `
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
+                let removeButton = document.createElement("p");
+                removeButton.innerText = "🗑️";
+                serviceLine.appendChild(removeButton);
+                removeButton.onclick = () => {
+                    container.removeChild(serviceLine);
+                    console.log(finalTotalAmount);
+                    finalTotalAmount = finalTotalAmount - getAmount(i);
+                    console.log(finalTotalAmount);
+                }
             }
         }
 
@@ -298,8 +329,8 @@ const engger = new Service("english", "german", 0.15);
 const gereng = new Service("german", "english", 0.17);
 const engpas = new Service("english", "pashto", 0.15);
 const paseng = new Service("pashto", "english", 0.17);
-const engafr = new Service("english", "afrikaans", 0.15, "eng-s", "afr-t");
-const afreng = new Service("afrikaans", "english", 0.17, "afr-s", "eng-t");
+const engafr = new Service("english", "afrikaans", 0.15);
+const afreng = new Service("afrikaans", "english", 0.17);
 const engamh = new Service("english", "amharic", 0.15);
 const amheng = new Service("amharic", "english", 0.17);
 const engcro = new Service("english", "croatian", 0.16);
@@ -417,359 +448,66 @@ document.getElementById('myFile').onchange = function () {
 
 fileName = localStorage.getItem("filename");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //EVENTOS PARA SOURCE LANGUAGES
 
-afrS.onclick = () => {
-    sourceLanguageSelected = "afrikaans";
-    selectAndUnselectSource();
-    afrS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-amhS.onclick = () => {
-    sourceLanguageSelected = "amharic";
-    selectAndUnselectSource();
-    amhS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-
-arcS.onclick = () => {
-    sourceLanguageSelected = "arabic";
-    selectAndUnselectSource();
-    arcS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-armS.onclick = () => {
-    sourceLanguageSelected = "armenian";
-    selectAndUnselectSource();
-    armS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-indS.onclick = () => {
-    sourceLanguageSelected = "indonesian";
-    selectAndUnselectSource();
-    indS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-burS.onclick = () => {
-    sourceLanguageSelected = "burmese";
-    selectAndUnselectSource();
-    burS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-camS.onclick = () => {
-    sourceLanguageSelected = "cambodian";
-    selectAndUnselectSource();
-    camS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-schS.onclick = () => {
-    sourceLanguageSelected = "simplified chinese";
-    selectAndUnselectSource();
-    schS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-tchS.onclick = () => {
-    sourceLanguageSelected = "traditional chinese";
-    selectAndUnselectSource();
-    tchS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-croS.onclick = () => {
-    sourceLanguageSelected = "croatian";
-    selectAndUnselectSource();
-    croS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-darS.onclick = () => {
-    sourceLanguageSelected = "dari";
-    selectAndUnselectSource();
-    darS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-dutS.onclick = () => {
-    sourceLanguageSelected = "dutch";
-    selectAndUnselectSource();
-    dutS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-engS.onclick = () => {
-    sourceLanguageSelected = "english";
-    selectAndUnselectSource();
-    engS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-farS.onclick = () => {
-    sourceLanguageSelected = "farsi";
-    selectAndUnselectSource();
-    farS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-freuS.onclick = () => {
-    sourceLanguageSelected = "french";
-    selectAndUnselectSource();
-    freuS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-gerS.onclick = () => {
-    sourceLanguageSelected = "german";
-    selectAndUnselectSource();
-    gerS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-hinS.onclick = () => {
-    sourceLanguageSelected = "hindi";
-    selectAndUnselectSource();
-    hinS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-itaS.onclick = () => {
-    sourceLanguageSelected = "italian";
-    selectAndUnselectSource();
-    itaS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-jpnS.onclick = () => {
-    sourceLanguageSelected = "japanese";
-    selectAndUnselectSource();
-    jpnS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-korS.onclick = () => {
-    sourceLanguageSelected = "korean";
-    selectAndUnselectSource();
-    korS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-pasS.onclick = () => {
-    sourceLanguageSelected = "pashto";
-    selectAndUnselectSource();
-    pasS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-polS.onclick = () => {
-    sourceLanguageSelected = "polish";
-    selectAndUnselectSource();
-    polS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-portS.onclick = () => {
-    sourceLanguageSelected = "portuguese";
-    selectAndUnselectSource();
-    portS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-rusS.onclick = () => {
-    sourceLanguageSelected = "russian";
-    selectAndUnselectSource();
-    rusS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-spaS.onclick = () => {
-    sourceLanguageSelected = "spanish";
-    selectAndUnselectSource();
-    spaS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-tagS.onclick = () => {
-    sourceLanguageSelected = "tagalog";
-    selectAndUnselectSource();
-    tagS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
-vietS.onclick = () => {
-    sourceLanguageSelected = "vietnamese";
-    selectAndUnselectSource();
-    vietS.className = "selected";
-    console.log(sourceLanguageSelected);
-}
+sourceLanguageEvent(afrS, "afrikaans");
+sourceLanguageEvent(amhS, "amharic");
+sourceLanguageEvent(arcS, "arabic");
+sourceLanguageEvent(armS, "armenian");
+sourceLanguageEvent(indS, "indonesian");
+sourceLanguageEvent(burS, "burmese");
+sourceLanguageEvent(camS, "cambodian");
+sourceLanguageEvent(schS, "simplified chinese");
+sourceLanguageEvent(tchS, "traditional chinese");
+sourceLanguageEvent(croS, "croatian");
+sourceLanguageEvent(darS, "dari");
+sourceLanguageEvent(dutS, "dutch");
+sourceLanguageEvent(engS, "english");
+sourceLanguageEvent(farS, "farsi");
+sourceLanguageEvent(freuS, "french");
+sourceLanguageEvent(gerS, "german");
+sourceLanguageEvent(hinS, "hindi");
+sourceLanguageEvent(itaS, "italian");
+sourceLanguageEvent(jpnS, "japanese");
+sourceLanguageEvent(korS, "korean");
+sourceLanguageEvent(pasS, "pashto");
+sourceLanguageEvent(polS, "polish");
+sourceLanguageEvent(portS, "portuguese");
+sourceLanguageEvent(rusS, "russian");
+sourceLanguageEvent(spaS, "spanish");
+sourceLanguageEvent(tagS, "tagalog");
+sourceLanguageEvent(vietS, "vietnamese");
 
 //EVENTOS PARA TARGET LANGUAGES
 
-afrT.onclick = () => {
-    targetLanguageSelected = "afrikaans";
-    selectAndUnselectTarget();
-    afrT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-amhT.onclick = () => {
-    targetLanguageSelected = "amharic";
-    selectAndUnselectTarget();
-    amhT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-arcT.onclick = () => {
-    targetLanguageSelected = "arabic";
-    selectAndUnselectTarget();
-    arcT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-armT.onclick = () => {
-    targetLanguageSelected = "armenian";
-    selectAndUnselectTarget();
-    armT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-indT.onclick = () => {
-    targetLanguageSelected = "indonesian";
-    selectAndUnselectTarget();
-    indT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-burT.onclick = () => {
-    targetLanguageSelected = "burmese";
-    selectAndUnselectTarget();
-    burT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-camT.onclick = () => {
-    targetLanguageSelected = "cambodian";
-    selectAndUnselectTarget();
-    camT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-schT.onclick = () => {
-    targetLanguageSelected = "simplified chinese";
-    selectAndUnselectTarget();
-    schT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-tchT.onclick = () => {
-    targetLanguageSelected = "traditional chinese";
-    selectAndUnselectTarget();
-    tchT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-croT.onclick = () => {
-    targetLanguageSelected = "croatian";
-    selectAndUnselectTarget();
-    croT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-darT.onclick = () => {
-    targetLanguageSelected = "dari";
-    selectAndUnselectTarget();
-    darT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-dutT.onclick = () => {
-    targetLanguageSelected = "dutch";
-    selectAndUnselectTarget();
-    dutT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-engT.onclick = () => {
-    targetLanguageSelected = "english";
-    selectAndUnselectTarget();
-    engT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-farT.onclick = () => {
-    targetLanguageSelected = "farsi";
-    selectAndUnselectTarget();
-    farT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-freuT.onclick = () => {
-    targetLanguageSelected = "french";
-    selectAndUnselectTarget();
-    freuT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-gerT.onclick = () => {
-    targetLanguageSelected = "german";
-    selectAndUnselectTarget();
-    gerT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-hinT.onclick = () => {
-    targetLanguageSelected = "hindi";
-    selectAndUnselectTarget();
-    hinT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-itaT.onclick = () => {
-    targetLanguageSelected = "italian";
-    selectAndUnselectTarget();
-    itaT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-jpnT.onclick = () => {
-    targetLanguageSelected = "japanese";
-    selectAndUnselectTarget();
-    jpnT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-korT.onclick = () => {
-    targetLanguageSelected = "korean";
-    selectAndUnselectTarget();
-    korT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-pasT.onclick = () => {
-    targetLanguageSelected = "pashto";
-    selectAndUnselectTarget();
-    pasT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-polT.onclick = () => {
-    targetLanguageSelected = "polish";
-    selectAndUnselectTarget();
-    polT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-portT.onclick = () => {
-    targetLanguageSelected = "portuguese";
-    selectAndUnselectTarget();
-    portT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-rusT.onclick = () => {
-    targetLanguageSelected = "russian";
-    selectAndUnselectTarget();
-    rusT.className = "selected";
-    console.log(targetLanguageSelected)
-}
-spaT.onclick = () => {
-    targetLanguageSelected = "spanish";
-    selectAndUnselectTarget();
-    spaT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-tagT.onclick = () => {
-    targetLanguageSelected = "tagalog";
-    selectAndUnselectTarget();
-    tagT.className = "selected";
-    console.log(targetLanguageSelected);
-}
-vietT.onclick = () => {
-    targetLanguageSelected = "vietnamese";
-    selectAndUnselectTarget();
-    vietT.className = "selected";
-    console.log(targetLanguageSelected);
-}
+targetLanguageEvent(afrT, "afrikaans");
+targetLanguageEvent(amhT, "amharic");
+targetLanguageEvent(arcT, "arabic");
+targetLanguageEvent(armT, "armenian");
+targetLanguageEvent(indT, "indonesian");
+targetLanguageEvent(burT, "burmese");
+targetLanguageEvent(camT, "cambodian");
+targetLanguageEvent(schT, "simplified chinese");
+targetLanguageEvent(tchT, "traditional chinese");
+targetLanguageEvent(croT, "croatian");
+targetLanguageEvent(darT, "dari");
+targetLanguageEvent(dutT, "dutch");
+targetLanguageEvent(engT, "english");
+targetLanguageEvent(farT, "farsi");
+targetLanguageEvent(freuT, "french");
+targetLanguageEvent(gerT, "german");
+targetLanguageEvent(hinT, "hindi");
+targetLanguageEvent(itaT, "italian");
+targetLanguageEvent(jpnT, "japanese");
+targetLanguageEvent(korT, "korean");
+targetLanguageEvent(pasT, "pashto");
+targetLanguageEvent(polT, "polish");
+targetLanguageEvent(portT, "portuguese");
+targetLanguageEvent(rusT, "russian");
+targetLanguageEvent(spaT, "spanish");
+targetLanguageEvent(tagT, "tagalog");
+targetLanguageEvent(vietT, "vietnamese");
+
 
 const cart = document.getElementById("cart");
 addButton = document.createElement("button");
@@ -820,11 +558,15 @@ submitButton.onclick = () => {
             finalTotalAmount = finalTotalAmount * 1.30;
         }
 
+        //Redondeo
+
+        finalTotalAmount = finalTotalAmount.toFixed(2);
+        console.log(finalTotalAmount);
+
         //Muestro los resultados en el HTML
 
         let mainsection = document.getElementById("main-section");
         mainsection.innerHTML = "";
-        results.append(container);
 
         //Botón para descargar el presupuesto en PDF
 
