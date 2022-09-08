@@ -151,11 +151,20 @@ const sendEmail = () => {
     emailjs.send("service_byiyb7y", "template_r27difz", data).then(function (response) {
         modal.style.display = "block";
         modalBody.innerText = "Thank you for your inquiry! An agent will be in touch with you shortly.";
-    })
+        finalResult.classList.add("hide");
+        let startOver = document.createElement("button");
+        startOver.classList.add("start-over");
+        startOver.innerText = "START OVER";
+        results.appendChild(startOver);
+        startOver.onclick = () => {
+            document.location.reload();
+        }
+    });
 }
 
 const addToCart = () => {
-    let serviceLine = document.createElement("p");
+    let serviceLine = document.createElement("div");
+    serviceLine.classList.add("service-lines");
 
     if (localStorage.getItem("wordcount") != null) {
         wordCount = localStorage.getItem("wordcount");
@@ -215,6 +224,7 @@ const addToCart = () => {
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
                 let removeButton = document.createElement("p");
                 removeButton.innerText = "🗑️";
+                removeButton.classList.add("remove-button");
                 serviceLine.appendChild(removeButton);
                 removeButton.onclick = () => {
                     container.removeChild(serviceLine);
