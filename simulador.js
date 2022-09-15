@@ -356,6 +356,33 @@ services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, en
 
 //DOM de los botones de los idiomas fuente (source languages)
 
+let listSource = document.getElementById("list-source");
+let listTarget = document.getElementById("list-target");
+
+const createSourceButton = (buttonName, languageName) => {
+    let buttonName = document.createElement("li");
+    buttonName.classList.add("source-language unselected");
+    buttonName.innerText = languageName;
+    listSource.appendChild(buttonName);
+}
+
+const createTargetButton = (buttonName, languageName) => {
+    let buttonName = document.createElement("li");
+    buttonName.classList.add("target-language unselected");
+    buttonName.innerText = languageName;
+    listSource.appendChild(buttonName);
+}
+
+
+
+
+
+
+
+
+
+
+
 let afrS = document.getElementById("afr-s");
 let amhS = document.getElementById("amh-s");
 let arcS = document.getElementById("arc-s");
