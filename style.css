@@ -1834,3 +1834,13 @@ form #myFile {
     padding: 3px 4px;
     font-size: 22px;
 }
+
+#list-source {
+    display: flex;
+    align-items: center;
+}
+
+#list-target {
+    display: flex;
+    align-items: center;
+}

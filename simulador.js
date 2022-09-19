@@ -24,30 +24,6 @@ const getAmount = (idNum) => {
 }
 
 
-//Para que se deseleccionen los demás botones al hacer clic en un botón
-
-const selectAndUnselectSource = () => {
-    sourceLanguagesList.forEach((language) => {
-        if (language.className === "selected") {
-            language.classList.remove("selected");
-        } 
-        if (language.className ==! "selected") {
-            language.className = "unselected";
-        }
-    });
-}
-
-const selectAndUnselectTarget = () => {
-    targetLanguagesList.forEach((language) => {
-        if (language.className === "selected") {
-            language.classList.remove("selected");
-        } 
-        if (language.className ==! "selected") {
-            language.className = "unselected";
-        }
-    });
-}
-
 const selectAndUnselectTurnaround = () => {
     turnaroundList.forEach((time) => {
         if (time.className === "selected") {
@@ -57,26 +33,6 @@ const selectAndUnselectTurnaround = () => {
             time.className = "unselected";
         }
     });
-}
-
-// Funciones de eventos para los botones de idiomas
-
-const sourceLanguageEvent = (langTag, lang) => {
-    langTag.onclick = () => {
-        sourceLanguageSelected = lang;
-        selectAndUnselectSource();
-        langTag.className = "selected";
-        console.log(sourceLanguageSelected);
-    }
-}
-
-const targetLanguageEvent = (langTag, lang) => {
-    langTag.onclick = () => {
-        targetLanguageSelected = lang;
-        selectAndUnselectTarget();
-        langTag.className = "selected";
-        console.log(targetLanguageSelected);
-    }
 }
 
 //Debug para evitar que el usuario continúe si no seleccionó archivo, par de idiomas, etc.
@@ -116,7 +72,7 @@ const compareLanguages = () => {
     }
 }
 
-//Para agregar un par de idiomas al carrito
+
 
 let arrayOfWords = [];
 let stringOfWords;
@@ -141,6 +97,147 @@ input.addEventListener('change', function (e) {
     reader.readAsText(input.files[0]);
 }, false)
 
+//Función para crear los botones con los idiomas
+//Idiomas source (fuente)
+const createSourceButton1 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    sourceList1.appendChild(button);
+    sourceButtons.push(button);
+
+    button.onclick = () => {
+        sourceLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        sourceButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(sourceLanguageSelected);
+    }
+}
+
+const createSourceButton2 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    sourceList2.appendChild(button);
+    sourceButtons.push(button);
+
+    button.onclick = () => {
+        sourceLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        sourceButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(sourceLanguageSelected);
+    }
+}
+
+const createSourceButton3 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    sourceList3.appendChild(button);
+    sourceButtons.push(button);
+
+    button.onclick = () => {
+        sourceLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        sourceButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(sourceLanguageSelected);
+    }
+}
+
+//Idiomas target (objetivo)
+
+const createTargetButton1 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    targetList1.appendChild(button);
+    targetButtons.push(button);
+
+    button.onclick = () => {
+        targetLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        targetButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(targetLanguageSelected);
+    }
+}
+
+const createTargetButton2 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    targetList2.appendChild(button);
+    targetButtons.push(button);
+
+    button.onclick = () => {
+        targetLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        targetButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(targetLanguageSelected);
+    }
+}
+
+const createTargetButton3 = (buttonName, languageName) => {
+    let button = document.createElement("li");
+    button.classList.add("unselected");
+    button.setAttribute("id", buttonName);
+    button.innerText = capitalizeFirstLetter(languageName);
+    targetList3.appendChild(button);
+    targetButtons.push(button);
+
+    button.onclick = () => {
+        targetLanguageSelected = languageName;
+        button.classList.remove('unselected');
+        targetButtons.forEach((language) => {
+            if (language.className === "selected") {
+                language.classList.remove("selected");
+                language.classList.add("unselected");
+            } 
+        });
+        button.classList.add("selected");
+        console.log(targetLanguageSelected);
+    }
+}
+
+//Función para enviar mail a mi casilla en caso de que el usuario desee encargar el proyecto
+
 const sendEmail = () => {
     let data = {
         from_name : document.getElementById("name").value,
@@ -162,6 +259,8 @@ const sendEmail = () => {
     });
 }
 
+//Para agregar un par de idiomas al carrito
+
 const addToCart = () => {
     let serviceLine = document.createElement("div");
     serviceLine.classList.add("service-lines");
@@ -176,9 +275,13 @@ const addToCart = () => {
     totalWordcount = parseInt(wordCount);
     totalAmount = calculatePrice();
     calculateMinimumFee();
-    
-    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
 
+    if ((avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
+        modalBody.innerText = "Error. Please ensure you have selected a file, source language, target language, turnaround and wordcount. If you have already selected a source and a target language, don't forget to click on the 'Add language pair' button."
+        container.appendChild(serviceLine);
+    }
+    
+    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected))) {
         if (isNaN(totalAmount)) {
             modal.style.display = "block";
             modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
@@ -359,93 +462,69 @@ services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, en
 let listSource = document.getElementById("list-source");
 let listTarget = document.getElementById("list-target");
 
-const createSourceButton = (buttonName, languageName) => {
-    let buttonName = document.createElement("li");
-    buttonName.classList.add("source-language unselected");
-    buttonName.innerText = languageName;
-    listSource.appendChild(buttonName);
+let sourceList1 = document.createElement("ul");
+sourceList1.classList = "source1";
+let sourceList2 = document.createElement("ul");
+sourceList2.classList = "source2";
+let sourceList3 = document.createElement("ul");
+sourceList3.classList = "source3";
+
+listSource.append(sourceList1);
+listSource.append(sourceList2);
+listSource.append(sourceList3);
+
+let targetList1 = document.createElement("ul");
+targetList1.classList = "target1";
+let targetList2 = document.createElement("ul");
+targetList2.classList = "target2";
+let targetList3 = document.createElement("ul");
+targetList3.classList = "target3";
+
+listTarget.append(targetList1);
+listTarget.append(targetList2);
+listTarget.append(targetList3);
+
+
+
+
+
+
+const sourceButtons = [];
+const targetButtons = [];
+
+const languageArray = ["afrikaans", "amharic", "arabic", "armenian", "indonesian", "burmese", "cambodian", "simplified chinese", "traditional chinese", "croatian", "dari", "dutch", "english", "farsi", "french", "german", "hindi", "italian", "japanese", "korean", "pashto", "polish", "portuguese", "russian", "spanish", "tagalog", "vietnamese"];
+
+const sourceLanguagesList = ["afrS", "amhS", "arcS", "armS", "indS", "burS", "camS", "schS", "tchS", "croS", "darS", "dutS", "engS", "farS", "freuS", "gerS", "hinS", "itaS", "jpnS", "korS", "pasS", "polS", "portS", "rusS", "spaS", "tagS", "vietS"];
+
+const targetLanguagesList = ["afrT", "amhT", "arcT", "armT", "indT", "burT", "camT", "schT", "tchT", "croT", "darT", "dutT", "engT", "farT", "freuT", "gerT", "hinT", "itaT", "jpnT", "korT", "pasT", "polT", "portT", "rusT", "spaT", "tagT", "vietT"];
+
+for (let i = 0; i < 9; i++) {
+    createSourceButton1(sourceLanguagesList[i], languageArray[i]);
 }
 
-const createTargetButton = (buttonName, languageName) => {
-    let buttonName = document.createElement("li");
-    buttonName.classList.add("target-language unselected");
-    buttonName.innerText = languageName;
-    listSource.appendChild(buttonName);
+for (let i = 9; i < 18; i++) {
+    createSourceButton2(sourceLanguagesList[i], languageArray[i]);
+}
+
+for (let i = 18; i < 27; i++) {
+    createSourceButton3(sourceLanguagesList[i], languageArray[i]);
 }
 
 
 
 
+for (let i = 0; i < 9; i++) {
+    createTargetButton1(targetLanguagesList[i], languageArray[i]);
+}
 
+for (let i = 9; i < 18; i++) {
+    createTargetButton2(targetLanguagesList[i], languageArray[i]);
+}
 
+for (let i = 18; i < 27; i++) {
+    createTargetButton3(targetLanguagesList[i], languageArray[i]);
+}
 
-
-
-
-
-let afrS = document.getElementById("afr-s");
-let amhS = document.getElementById("amh-s");
-let arcS = document.getElementById("arc-s");
-let armS = document.getElementById("arm-s");
-let indS = document.getElementById("ind-s");
-let burS = document.getElementById("bur-s");
-let camS = document.getElementById("cam-s");
-let schS = document.getElementById("sch-s");
-let tchS = document.getElementById("tch-s");
-let croS = document.getElementById("cro-s");
-let darS = document.getElementById("dar-s");
-let dutS = document.getElementById("dut-s");
-let engS = document.getElementById("eng-s");
-let farS = document.getElementById("far-s");
-let freuS = document.getElementById("freu-s");
-let gerS = document.getElementById("ger-s");
-let hinS = document.getElementById("hin-s");
-let itaS = document.getElementById("ita-s");
-let jpnS = document.getElementById("jpn-s");
-let korS = document.getElementById("kor-s");
-let pasS = document.getElementById("pas-s");
-let polS = document.getElementById("pol-s");
-let portS = document.getElementById("port-s");
-let rusS = document.getElementById("rus-s");
-let spaS = document.getElementById("spa-s");
-let tagS = document.getElementById("tag-s");
-let vietS = document.getElementById("viet-s");
-
-const sourceLanguagesList = []
-sourceLanguagesList.push(afrS, amhS, arcS, armS, indS, burS, camS, schS, tchS, croS, darS, dutS, engS, farS, freuS, gerS, farS, hinS, itaS, jpnS, korS, pasS, polS, portS, rusS, spaS, tagS, vietS);
-
-//DOM de los botones de los idiomas objetivo (Target languages)
-
-let afrT = document.getElementById("afr-t");
-let amhT = document.getElementById("amh-t");
-let arcT = document.getElementById("arc-t");
-let armT = document.getElementById("arm-t");
-let indT = document.getElementById("ind-t");
-let burT = document.getElementById("bur-t");
-let camT = document.getElementById("cam-t");
-let schT = document.getElementById("sch-t");
-let tchT = document.getElementById("tch-t");
-let croT = document.getElementById("cro-t");
-let darT = document.getElementById("dar-t");
-let dutT = document.getElementById("dut-t");
-let engT = document.getElementById("eng-t");
-let farT = document.getElementById("far-t");
-let freuT = document.getElementById("freu-t");
-let gerT = document.getElementById("ger-t");
-let hinT = document.getElementById("hin-t");
-let itaT = document.getElementById("ita-t");
-let jpnT = document.getElementById("jpn-t");
-let korT = document.getElementById("kor-t");
-let pasT = document.getElementById("pas-t");
-let polT = document.getElementById("pol-t");
-let portT = document.getElementById("port-t");
-let rusT = document.getElementById("rus-t");
-let spaT = document.getElementById("spa-t");
-let tagT = document.getElementById("tag-t");
-let vietT = document.getElementById("viet-t");
-
-const targetLanguagesList = [];
-targetLanguagesList.push(afrT, amhT, arcT, armT, indT, burT, camT, schT, tchT, croT, darT, dutT, engT, farT, freuT, gerT, hinT, itaT, jpnT, korT, pasT, polT, portT, rusT, spaT, tagT, vietT);
 
 //Resultados DOM donde se mostrará monto total
 
@@ -487,63 +566,9 @@ fileName = localStorage.getItem("filename");
 
 //EVENTOS PARA SOURCE LANGUAGES
 
-sourceLanguageEvent(afrS, "afrikaans");
-sourceLanguageEvent(amhS, "amharic");
-sourceLanguageEvent(arcS, "arabic");
-sourceLanguageEvent(armS, "armenian");
-sourceLanguageEvent(indS, "indonesian");
-sourceLanguageEvent(burS, "burmese");
-sourceLanguageEvent(camS, "cambodian");
-sourceLanguageEvent(schS, "simplified chinese");
-sourceLanguageEvent(tchS, "traditional chinese");
-sourceLanguageEvent(croS, "croatian");
-sourceLanguageEvent(darS, "dari");
-sourceLanguageEvent(dutS, "dutch");
-sourceLanguageEvent(engS, "english");
-sourceLanguageEvent(farS, "farsi");
-sourceLanguageEvent(freuS, "french");
-sourceLanguageEvent(gerS, "german");
-sourceLanguageEvent(hinS, "hindi");
-sourceLanguageEvent(itaS, "italian");
-sourceLanguageEvent(jpnS, "japanese");
-sourceLanguageEvent(korS, "korean");
-sourceLanguageEvent(pasS, "pashto");
-sourceLanguageEvent(polS, "polish");
-sourceLanguageEvent(portS, "portuguese");
-sourceLanguageEvent(rusS, "russian");
-sourceLanguageEvent(spaS, "spanish");
-sourceLanguageEvent(tagS, "tagalog");
-sourceLanguageEvent(vietS, "vietnamese");
 
 //EVENTOS PARA TARGET LANGUAGES
 
-targetLanguageEvent(afrT, "afrikaans");
-targetLanguageEvent(amhT, "amharic");
-targetLanguageEvent(arcT, "arabic");
-targetLanguageEvent(armT, "armenian");
-targetLanguageEvent(indT, "indonesian");
-targetLanguageEvent(burT, "burmese");
-targetLanguageEvent(camT, "cambodian");
-targetLanguageEvent(schT, "simplified chinese");
-targetLanguageEvent(tchT, "traditional chinese");
-targetLanguageEvent(croT, "croatian");
-targetLanguageEvent(darT, "dari");
-targetLanguageEvent(dutT, "dutch");
-targetLanguageEvent(engT, "english");
-targetLanguageEvent(farT, "farsi");
-targetLanguageEvent(freuT, "french");
-targetLanguageEvent(gerT, "german");
-targetLanguageEvent(hinT, "hindi");
-targetLanguageEvent(itaT, "italian");
-targetLanguageEvent(jpnT, "japanese");
-targetLanguageEvent(korT, "korean");
-targetLanguageEvent(pasT, "pashto");
-targetLanguageEvent(polT, "polish");
-targetLanguageEvent(portT, "portuguese");
-targetLanguageEvent(rusT, "russian");
-targetLanguageEvent(spaT, "spanish");
-targetLanguageEvent(tagT, "tagalog");
-targetLanguageEvent(vietT, "vietnamese");
 
 
 const cart = document.getElementById("cart");
@@ -639,4 +664,5 @@ submitButton.onclick = () => {
         localStorage.clear();
     }
 }
+
 
