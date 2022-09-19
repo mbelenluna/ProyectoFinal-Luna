@@ -38,7 +38,7 @@ const selectAndUnselectTurnaround = () => {
 //Debug para evitar que el usuario continúe si no seleccionó archivo, par de idiomas, etc.
 
 const avoidErrors = (e) => {
-    if (e === undefined) {
+    if ((e === undefined) || (e === null)) {
         console.log(e);
         modal.style.display = "block";
         return false;
@@ -117,7 +117,7 @@ const createSourceButton1 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(sourceLanguageSelected);
     }
 }
@@ -140,7 +140,7 @@ const createSourceButton2 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(sourceLanguageSelected);
     }
 }
@@ -163,7 +163,7 @@ const createSourceButton3 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(sourceLanguageSelected);
     }
 }
@@ -187,7 +187,7 @@ const createTargetButton1 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(targetLanguageSelected);
     }
 }
@@ -209,7 +209,7 @@ const createTargetButton2 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(targetLanguageSelected);
     }
 }
@@ -231,7 +231,7 @@ const createTargetButton3 = (buttonName, languageName) => {
                 language.classList.add("unselected");
             } 
         });
-        button.classList.add("selected");
+        button.className = "selected";
         console.log(targetLanguageSelected);
     }
 }
@@ -276,12 +276,12 @@ const addToCart = () => {
     totalAmount = calculatePrice();
     calculateMinimumFee();
 
-    if ((avoidErrors(fileName)) && (avoidErrors(totalWordcount))) {
+    if (avoidErrors(totalWordcount) === false) {
         modalBody.innerText = "Error. Please ensure you have selected a file, source language, target language, turnaround and wordcount. If you have already selected a source and a target language, don't forget to click on the 'Add language pair' button."
         container.appendChild(serviceLine);
     }
     
-    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected))) {
+    if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(totalWordcount)) && avoidErrors(fileName)) {
         if (isNaN(totalAmount)) {
             modal.style.display = "block";
             modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
@@ -452,10 +452,24 @@ const engdar = new Service("english", "dari", 0.16);
 const dareng = new Service("dari", "english", 0.18);
 const engdut = new Service("english", "dutch", 0.16);
 const duteng = new Service("dutch", "english", 0.18);
+const spaafr = new Service("spanish", "afrikaans", 0.18);
+const spaamh = new Service("spanish", "amharic", 0.18);
+const spaarc = new Service("spanish", "arabic", 0.18);
+const spaarm = new Service("spanish", "armenian", 0.18);
+const spaind = new Service("spanish", "indonesian", 0.18);
+const spabur = new Service("spanish", "burmese", 0.18);
+const spacam = new Service("spanish", "cambodian", 0.18);
+const spasch = new Service("spanish", "simplified chinese", 0.18);
+const spatch = new Service("spanish", "traditional chinese", 0.18);
+const spacro = new Service("spanish", "croatian", 0.18);
+const spadar = new Service("spanish", "dari", 0.18);
+const spadut = new Service("spanish", "dutch", 0.18);
+
+
 
 const services = [];
 
-services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, engind, indeng, engbur, bureng, engcam, cameng, engsch, scheng, engtch, tcheng, engcro, croeng, engdar, dareng, engdut, duteng, engdar, dareng, engdut, duteng, engfar, fareng, engfreu, freueng, engger, gereng, enghin, hineng, engita, itaeng, engjpn, jpneng, engkor, koreng, engpas, paseng, engpol, poleng, engport, porteng, engrus, ruseng, engspa, spaeng, engtag, tageng, engviet, vieteng);
+services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, engind, indeng, engbur, bureng, engcam, cameng, engsch, scheng, engtch, tcheng, engcro, croeng, engdar, dareng, engdut, duteng, engdar, dareng, engdut, duteng, engfar, fareng, engfreu, freueng, engger, gereng, enghin, hineng, engita, itaeng, engjpn, jpneng, engkor, koreng, engpas, paseng, engpol, poleng, engport, porteng, engrus, ruseng, engspa, spaeng, engtag, tageng, engviet, vieteng, spaafr, spaamh, spaarc, spaarm, spaind, spabur, spacam, spasch, spatch, spacro, spadar, spadut);
 
 //DOM de los botones de los idiomas fuente (source languages)
 
@@ -629,6 +643,11 @@ submitButton.onclick = () => {
 
         let mainsection = document.getElementById("main-section");
         mainsection.innerHTML = "";
+        let containerText = container.innerText;
+        let containerResults = containerText.replace("🗑️", "");
+        do {
+            containerResults = containerResults.replace("🗑️", "");
+        } while (containerResults.includes("🗑️"))
 
         //Botón para descargar el presupuesto en PDF
 
@@ -638,15 +657,15 @@ submitButton.onclick = () => {
         results.append(downloadQuoteButton);
         downloadQuoteButton.onclick = () => {
             window.jsPDF = window.jspdf.jsPDF;
-            const doc = new jsPDF();
-            doc.text("Rolling Translations\n\n" + container.innerText + "\n\nTotal Wordcount: " + totalWordcount + "\n\nFile Name: " + fileName + "\n\nTotal Price: $" + finalTotalAmount, 10, 10);
+            const doc = new jsPDF("l", "mm", [297, 210]);
+            doc.text("Rolling Translations\n\n" + containerResults + "\n\nTotal Wordcount: " + totalWordcount + "\n\nFile Name: " + fileName + "\n\nTotal Price: $" + finalTotalAmount, 10, 10);
             doc.save("QUOTE.pdf");
         }
         finalResult = document.createElement("div");
         finalResult.className = "final-result";
-        finalResult.innerHTML = `\n<p>The total amount is <b>$` + finalTotalAmount + `</b>.</p>
+        finalResult.innerHTML = `\n<p>The total cost is <b>$` + finalTotalAmount + `</b>.</p>
     <h2>Would you like to proceed?</h2>
-    <p>If you would like us to proceed with your request, please enter your name and email address below.</p>
+    <p>If you would like us to proceed with your request, please enter your name and email address below. One of our agents will get in touch with you shortly to confirm your project.</p>
     <label>Full Name:</label>
     <input id="name" type="text" placeholder="Your Full Name" required>
     <label>Email Address:</label>

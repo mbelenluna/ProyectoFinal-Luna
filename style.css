@@ -1684,6 +1684,8 @@ ul {
 
 .turnaround-responses #asap, #notrush {
     padding: 3px 5px;
+    width: 200px;
+    text-align: center;
     border-radius: 2px;
     border: black solid 0.5px;
     color: white;
@@ -1767,9 +1769,12 @@ ul {
     font-family: parrafos;
 }
 
-@media screen and (max-width:575px) {
-    .language-list3, .language-list2, .language-list1 {
-        padding: 0;
+@media screen and (max-width:547px) {
+    #list-source {
+        flex-direction: column;
+    }
+    #list-target {
+        flex-direction: column;
     }
 }
 
