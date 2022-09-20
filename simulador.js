@@ -19,10 +19,13 @@ const calculateRate = () => {
     }
 }
 
+//Para calcular el monto parcial de determinado servicio que quiero eliminar del carrito y restar del monto final
+
 const getAmount = (idNum) => {
     return servicesSelected[idNum].amount;
 }
 
+//Para que se seleccione/deseleccionen los botones del sector Turnaround time
 
 const selectAndUnselectTurnaround = () => {
     turnaroundList.forEach((time) => {
@@ -53,9 +56,7 @@ const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-//Para comparar el par de idioma elegido con los pares de idiomas anteriormente agregados
-
-let exitLoop = false;
+//Para comparar el par de idiomas elegido con los pares de idiomas anteriormente agregados y arrojar mensaje de error en caso de ya haberlo seleccionado
 
 const compareLanguages = () => {
     for (let i = 0; i < selectedSourceLanguages.length; i++) {
@@ -72,40 +73,15 @@ const compareLanguages = () => {
     }
 }
 
+//Función para crear los botones con los idiomas fuente (source). Se pasan tres parámetros: la variable identificadora del idioma y de la lista a la que pertenece, el nombre del idioma como aparecerá en el botón en el HTML y la columna a la cual agregamos el botón (list 1, 2 o 3) para que se distruyan de forma unirme en el HTML.
 
-
-let arrayOfWords = [];
-let stringOfWords;
-let wordcountOfFile;
-
-const input = document.getElementById("myFile");
-input.addEventListener('change', function (e) {
-    console.log(input.files)
-    const reader = new FileReader();
-    reader.onload = function () {
-        const lines = reader.result.split('\n').map(function (line) {
-        return line.split(" ");
-    });
-    arrayOfWords = lines.toString();
-    stringOfWords = arrayOfWords.replace(/"/g, "");
-    stringOfWords = stringOfWords.replace(/,/g, " ");
-    wordcountOfFile = stringOfWords.split(" ");
-    wordCount = wordcountOfFile.length;
-    localStorage.setItem("wordcount", wordCount);
-    console.log(wordCount);
-    }
-    reader.readAsText(input.files[0]);
-}, false)
-
-//Función para crear los botones con los idiomas
-//Idiomas source (fuente)
-const createSourceButton1 = (buttonName, languageName) => {
+const createSourceButton = (buttonName, languageName, listName) => {
     let button = document.createElement("li");
 
     button.classList.add("unselected");
     button.setAttribute("id", buttonName);
     button.innerText = capitalizeFirstLetter(languageName);
-    sourceList1.appendChild(button);
+    listName.appendChild(button);
     sourceButtons.push(button);
 
     button.onclick = () => {
@@ -122,60 +98,14 @@ const createSourceButton1 = (buttonName, languageName) => {
     }
 }
 
-const createSourceButton2 = (buttonName, languageName) => {
-    let button = document.createElement("li");
+//Función para crear los botones con los idiomas objetivo (target). Se pasan tres parámetros: la variable identificadora del idioma y de la lista a la que pertenece, el nombre del idioma como aparecerá en el botón en el HTML y la columna a la cual agregamos el botón (list 1, 2 o 3) para que se distruyan de forma unirme en el HTML.
 
-    button.classList.add("unselected");
-    button.setAttribute("id", buttonName);
-    button.innerText = capitalizeFirstLetter(languageName);
-    sourceList2.appendChild(button);
-    sourceButtons.push(button);
-
-    button.onclick = () => {
-        sourceLanguageSelected = languageName;
-        button.classList.remove('unselected');
-        sourceButtons.forEach((language) => {
-            if (language.className === "selected") {
-                language.classList.remove("selected");
-                language.classList.add("unselected");
-            } 
-        });
-        button.className = "selected";
-        console.log(sourceLanguageSelected);
-    }
-}
-
-const createSourceButton3 = (buttonName, languageName) => {
-    let button = document.createElement("li");
-
-    button.classList.add("unselected");
-    button.setAttribute("id", buttonName);
-    button.innerText = capitalizeFirstLetter(languageName);
-    sourceList3.appendChild(button);
-    sourceButtons.push(button);
-
-    button.onclick = () => {
-        sourceLanguageSelected = languageName;
-        button.classList.remove('unselected');
-        sourceButtons.forEach((language) => {
-            if (language.className === "selected") {
-                language.classList.remove("selected");
-                language.classList.add("unselected");
-            } 
-        });
-        button.className = "selected";
-        console.log(sourceLanguageSelected);
-    }
-}
-
-//Idiomas target (objetivo)
-
-const createTargetButton1 = (buttonName, languageName) => {
+const createTargetButton = (buttonName, languageName, listName) => {
     let button = document.createElement("li");
     button.classList.add("unselected");
     button.setAttribute("id", buttonName);
     button.innerText = capitalizeFirstLetter(languageName);
-    targetList1.appendChild(button);
+    listName.appendChild(button);
     targetButtons.push(button);
 
     button.onclick = () => {
@@ -192,57 +122,13 @@ const createTargetButton1 = (buttonName, languageName) => {
     }
 }
 
-const createTargetButton2 = (buttonName, languageName) => {
-    let button = document.createElement("li");
-    button.classList.add("unselected");
-    button.setAttribute("id", buttonName);
-    button.innerText = capitalizeFirstLetter(languageName);
-    targetList2.appendChild(button);
-    targetButtons.push(button);
-
-    button.onclick = () => {
-        targetLanguageSelected = languageName;
-        button.classList.remove('unselected');
-        targetButtons.forEach((language) => {
-            if (language.className === "selected") {
-                language.classList.remove("selected");
-                language.classList.add("unselected");
-            } 
-        });
-        button.className = "selected";
-        console.log(targetLanguageSelected);
-    }
-}
-
-const createTargetButton3 = (buttonName, languageName) => {
-    let button = document.createElement("li");
-    button.classList.add("unselected");
-    button.setAttribute("id", buttonName);
-    button.innerText = capitalizeFirstLetter(languageName);
-    targetList3.appendChild(button);
-    targetButtons.push(button);
-
-    button.onclick = () => {
-        targetLanguageSelected = languageName;
-        button.classList.remove('unselected');
-        targetButtons.forEach((language) => {
-            if (language.className === "selected") {
-                language.classList.remove("selected");
-                language.classList.add("unselected");
-            } 
-        });
-        button.className = "selected";
-        console.log(targetLanguageSelected);
-    }
-}
-
-//Función para enviar mail a mi casilla en caso de que el usuario desee encargar el proyecto
+//Función para enviar mail a mi casilla en caso de que el usuario desee encargar el proyecto. Se me enviará el nombre, email, servicios elegidos y archivo.
 
 const sendEmail = () => {
     let data = {
         from_name : document.getElementById("name").value,
         email_id : document.getElementById("email").value,
-        service_container : container.innerText,
+        service_container : containerResults,
         file : input,
     }
     emailjs.send("service_byiyb7y", "template_r27difz", data).then(function (response) {
@@ -350,6 +236,26 @@ const calculateMinimumFee = () => {
     calculatePrice() < 50 ? totalAmount = 50 : totalAmount = calculatePrice();
 }
 
+//Leo el archivo subido por el cliente y obtengo cantidad de palabras
+const input = document.getElementById("myFile");
+input.addEventListener('change', function (e) {
+    console.log(input.files)
+    const reader = new FileReader();
+    reader.onload = function () {
+        const lines = reader.result.split('\n').map(function (line) {
+        return line.split(" ");
+    });
+    arrayOfWords = lines.toString();
+    stringOfWords = arrayOfWords.replace(/"/g, "");
+    stringOfWords = stringOfWords.replace(/,/g, " ");
+    wordcountOfFile = stringOfWords.split(" ");
+    wordCount = wordcountOfFile.length;
+    localStorage.setItem("wordcount", wordCount);
+    console.log(wordCount);
+    }
+    reader.readAsText(input.files[0]);
+}, false)
+
 //MODAL, variables, DOM y eventos
 
 const modal = document.getElementById("modal");
@@ -389,6 +295,11 @@ const selectedTargetLanguages = [];
 let num = 0;
 let serviceLines = "";
 const servicesSelected = [];
+let exitLoop = false;
+let arrayOfWords = [];
+let stringOfWords;
+let wordcountOfFile;
+let containerResults;
 
 //Tasa por palabra, objetos creados con clase constructora
 
@@ -513,30 +424,30 @@ const sourceLanguagesList = ["afrS", "amhS", "arcS", "armS", "indS", "burS", "ca
 const targetLanguagesList = ["afrT", "amhT", "arcT", "armT", "indT", "burT", "camT", "schT", "tchT", "croT", "darT", "dutT", "engT", "farT", "freuT", "gerT", "hinT", "itaT", "jpnT", "korT", "pasT", "polT", "portT", "rusT", "spaT", "tagT", "vietT"];
 
 for (let i = 0; i < 9; i++) {
-    createSourceButton1(sourceLanguagesList[i], languageArray[i]);
+    createSourceButton(sourceLanguagesList[i], languageArray[i], sourceList1);
 }
 
 for (let i = 9; i < 18; i++) {
-    createSourceButton2(sourceLanguagesList[i], languageArray[i]);
+    createSourceButton(sourceLanguagesList[i], languageArray[i], sourceList2);
 }
 
 for (let i = 18; i < 27; i++) {
-    createSourceButton3(sourceLanguagesList[i], languageArray[i]);
+    createSourceButton(sourceLanguagesList[i], languageArray[i], sourceList3);
 }
 
 
 
 
 for (let i = 0; i < 9; i++) {
-    createTargetButton1(targetLanguagesList[i], languageArray[i]);
+    createTargetButton(targetLanguagesList[i], languageArray[i], targetList1);
 }
 
 for (let i = 9; i < 18; i++) {
-    createTargetButton2(targetLanguagesList[i], languageArray[i]);
+    createTargetButton(targetLanguagesList[i], languageArray[i], targetList2);
 }
 
 for (let i = 18; i < 27; i++) {
-    createTargetButton3(targetLanguagesList[i], languageArray[i]);
+    createTargetButton(targetLanguagesList[i], languageArray[i], targetList3);
 }
 
 
@@ -644,7 +555,7 @@ submitButton.onclick = () => {
         let mainsection = document.getElementById("main-section");
         mainsection.innerHTML = "";
         let containerText = container.innerText;
-        let containerResults = containerText.replace("🗑️", "");
+        containerResults = containerText.replace("🗑️", "");
         do {
             containerResults = containerResults.replace("🗑️", "");
         } while (containerResults.includes("🗑️"))
