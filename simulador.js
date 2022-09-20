@@ -220,6 +220,8 @@ const addToCart = () => {
                     console.log(finalTotalAmount);
                     finalTotalAmount = finalTotalAmount - getAmount(i);
                     console.log(finalTotalAmount);
+                    selectedSourceLanguages.splice(i, 1);
+                    selectedTargetLanguages.splice(i, 1);
                 }
             }
         }
