@@ -122,6 +122,12 @@ const createTargetButton = (buttonName, languageName, listName) => {
     }
 }
 
+//Función para establecer la tarifa mínima por cada par de idiomas / TERNARIO 
+
+const calculateMinimumFee = () => {
+    calculatePrice() < 50 ? totalAmount = 50 : totalAmount = calculatePrice();
+}
+
 //Función para enviar mail a mi casilla en caso de que el usuario desee encargar el proyecto. Se me enviará el nombre, email, servicios elegidos y archivo.
 
 const sendEmail = () => {
@@ -145,27 +151,33 @@ const sendEmail = () => {
     });
 }
 
-//Para agregar un par de idiomas al carrito
+//Función para agregar un par de idiomas al carrito
 
 const addToCart = () => {
+    //Creo el contenedor del carrito
     let serviceLine = document.createElement("div");
     serviceLine.classList.add("service-lines");
 
+    //Recupero la cantidad de palabras (wordcount) del local storage
     if (localStorage.getItem("wordcount") != null) {
         wordCount = localStorage.getItem("wordcount");
         wordCount = parseInt(wordCount);
         console.log(wordCount);
     } 
 
-    console.log(wordCount);
     totalWordcount = parseInt(wordCount);
+
+    //Cálculos del precio total por los servicios elegidos
     totalAmount = calculatePrice();
     calculateMinimumFee();
 
+    //Agrego modal con mensaje de error en caso de que el cliente no haya seleccionado un archivo o par de idiomas.
     if (avoidErrors(totalWordcount) === false) {
-        modalBody.innerText = "Error. Please ensure you have selected a file, source language, target language, turnaround and wordcount. If you have already selected a source and a target language, don't forget to click on the 'Add language pair' button."
+        modalBody.innerText = "Error. Please ensure you have selected a file, source language, target language, and wordcount. If you have already selected a source and a target language, don't forget to click on the 'Add language pair' button."
         container.appendChild(serviceLine);
     }
+
+    //Agrego modal con mensaje de error en caso de que el cliente haya seleccionado un par de idiomas para el que no ofrecemos traducción.
     
     if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(totalWordcount)) && avoidErrors(fileName)) {
         if (isNaN(totalAmount)) {
@@ -173,6 +185,7 @@ const addToCart = () => {
             modalBody.innerText = "Unfortunately, we do not offer translation services for the selected language pair at this moment. Please contact us directly through our Contact Us Form to see if we can accomodate your request."
             totalAmount = 0;
             container.appendChild(serviceLine);
+            //Agrego modal con mensaje de error en caso de que el cliente haya seleccionado el mismo par de idiomas nuevamente.
         } else if (compareLanguages()) {
             modal.style.display = "block";
             modalBody.innerText = "You have already selected this language pair.";
@@ -180,24 +193,28 @@ const addToCart = () => {
             exitLoop = false;
             container.appendChild(serviceLine);
         } else {
-
+            //Voy registrando los servicios elegidos en un array.
             servicesSelected.push({
                 source: sourceLanguageSelected,
                 target: targetLanguageSelected,
                 amount: totalAmount,
             });
 
+            //Sumo el monto por cada servicio al monto final.
             finalTotalAmount += totalAmount;
 
+            //Pusheo los idiomas elegidos a dos arrays, uno de idiomas fuente y otro de idiomas objetivo, que me ayudarán a ver si se repiten los idiomas.
             selectedSourceLanguages.push(capitalizeFirstLetter(sourceLanguageSelected));
             selectedTargetLanguages.push(capitalizeFirstLetter(targetLanguageSelected));
+
+            //Establezco la tasa por palabra según el par de idiomas elegido.
             rate = calculateRate();
 
-            console.log(rate);
-
+            //Redondeo el monto final.
             finalTotalAmount = Math.round(finalTotalAmount);
             console.log(finalTotalAmount);
 
+            //Toastify. Alerta cada vez que agreo un par de idiomas al carrito.
             Toastify({
 
                 text: "You selected " + capitalizeFirstLetter(sourceLanguageSelected) + " into " + capitalizeFirstLetter(targetLanguageSelected),
@@ -208,34 +225,30 @@ const addToCart = () => {
 
             //Contenedor del carrito con botón para remover el servicio
 
+            //Dibujo el contenedor del carrito con los idiomas que el cliente va eligiendo.
             for (let i = 0; i < selectedSourceLanguages.length; i++) {
                 serviceLine.innerHTML = `
                     <li class="service-item">Translation from ${selectedSourceLanguages[i]} into ${selectedTargetLanguages[i]}</li>`;
+                //Creo un botón para eliminar cada servicio
                 let removeButton = document.createElement("p");
                 removeButton.innerText = "🗑️";
                 removeButton.classList.add("remove-button");
                 serviceLine.appendChild(removeButton);
+
+                //Agrego el evento al botón para eliminar del carrito.
                 removeButton.onclick = () => {
                     container.removeChild(serviceLine);
-                    console.log(finalTotalAmount);
                     finalTotalAmount = finalTotalAmount - getAmount(i);
-                    console.log(finalTotalAmount);
+                    //Quito los idiomas del array de idiomas fuente y objetivo.
                     selectedSourceLanguages.splice(i, 1);
                     selectedTargetLanguages.splice(i, 1);
                 }
             }
         }
 
-        console.log(...servicesSelected);
+        //Agrego el contenedor a la página.
         container.appendChild(serviceLine);
-
     }
-}
-
-//Para establecer la tarifa mínima por cada par de palabras / TERNARIO 
-
-const calculateMinimumFee = () => {
-    calculatePrice() < 50 ? totalAmount = 50 : totalAmount = calculatePrice();
 }
 
 //Leo el archivo subido por el cliente y obtengo cantidad de palabras
@@ -252,13 +265,15 @@ input.addEventListener('change', function (e) {
     stringOfWords = stringOfWords.replace(/,/g, " ");
     wordcountOfFile = stringOfWords.split(" ");
     wordCount = wordcountOfFile.length;
+
+    //Guardo la cantidad de palabras en el local storage
     localStorage.setItem("wordcount", wordCount);
     console.log(wordCount);
     }
     reader.readAsText(input.files[0]);
 }, false)
 
-//MODAL, variables, DOM y eventos
+//MODAL: Creo el modal y los respectivos eventos (cruz para cerrarlo, botón "go back", etc.)
 
 const modal = document.getElementById("modal");
 const closeButtonModal = document.getElementById("close-button");
@@ -273,14 +288,7 @@ goBackButtonModal.onclick = () => {
 
 const modalBody = document.getElementById("modal-body");
 
-//EVENTO DE ENTER para hacer clic en submit
-document.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        submitButton.onclick();
-    }
-});
-
-//Variables
+//Inicialización/declaración de variables y arrays
 
 let wordCount;
 let sourceLanguageSelected;
@@ -303,7 +311,7 @@ let stringOfWords;
 let wordcountOfFile;
 let containerResults;
 
-//Tasa por palabra, objetos creados con clase constructora
+//Creo objetos con fórmula constructora de cada uno de los servicios que ofrecemos. Los uso para obtener la tasa por palabra de cada servicio.
 
 class Service{
     constructor(source, target, rate) {
@@ -378,17 +386,18 @@ const spacro = new Service("spanish", "croatian", 0.18);
 const spadar = new Service("spanish", "dari", 0.18);
 const spadut = new Service("spanish", "dutch", 0.18);
 
-
+//Subo los objetos a un array para su uso en funciones.
 
 const services = [];
 
 services.push(engafr, afreng, engamh, amheng, engarc, arceng, engarm, armeng, engind, indeng, engbur, bureng, engcam, cameng, engsch, scheng, engtch, tcheng, engcro, croeng, engdar, dareng, engdut, duteng, engdar, dareng, engdut, duteng, engfar, fareng, engfreu, freueng, engger, gereng, enghin, hineng, engita, itaeng, engjpn, jpneng, engkor, koreng, engpas, paseng, engpol, poleng, engport, porteng, engrus, ruseng, engspa, spaeng, engtag, tageng, engviet, vieteng, spaafr, spaamh, spaarc, spaarm, spaind, spabur, spacam, spasch, spatch, spacro, spadar, spadut);
 
-//DOM de los botones de los idiomas fuente (source languages)
+//DOM de los botones de los idiomas fuente y objetivo
 
 let listSource = document.getElementById("list-source");
 let listTarget = document.getElementById("list-target");
 
+//Creo 3 listas en DOM (una para cada columna) así los botones se distribuyen de forma uniforme.
 let sourceList1 = document.createElement("ul");
 sourceList1.classList = "source1";
 let sourceList2 = document.createElement("ul");
@@ -411,19 +420,20 @@ listTarget.append(targetList1);
 listTarget.append(targetList2);
 listTarget.append(targetList3);
 
-
-
-
-
+//Creo arrays con los botones para luego usarlos en la función para agregar los botones al HTML.
 
 const sourceButtons = [];
 const targetButtons = [];
+
+//Arrays de los idiomas a mostrar en cada uno de los botones y los nombres para identificar cada botón
 
 const languageArray = ["afrikaans", "amharic", "arabic", "armenian", "indonesian", "burmese", "cambodian", "simplified chinese", "traditional chinese", "croatian", "dari", "dutch", "english", "farsi", "french", "german", "hindi", "italian", "japanese", "korean", "pashto", "polish", "portuguese", "russian", "spanish", "tagalog", "vietnamese"];
 
 const sourceLanguagesList = ["afrS", "amhS", "arcS", "armS", "indS", "burS", "camS", "schS", "tchS", "croS", "darS", "dutS", "engS", "farS", "freuS", "gerS", "hinS", "itaS", "jpnS", "korS", "pasS", "polS", "portS", "rusS", "spaS", "tagS", "vietS"];
 
 const targetLanguagesList = ["afrT", "amhT", "arcT", "armT", "indT", "burT", "camT", "schT", "tchT", "croT", "darT", "dutT", "engT", "farT", "freuT", "gerT", "hinT", "itaT", "jpnT", "korT", "pasT", "polT", "portT", "rusT", "spaT", "tagT", "vietT"];
+
+//For loops para crear los botones de idiomas fuente (uno por cada una de las 3 columnas)
 
 for (let i = 0; i < 9; i++) {
     createSourceButton(sourceLanguagesList[i], languageArray[i], sourceList1);
@@ -437,8 +447,7 @@ for (let i = 18; i < 27; i++) {
     createSourceButton(sourceLanguagesList[i], languageArray[i], sourceList3);
 }
 
-
-
+//For loops para crear los botones de idiomas objetivo (uno por cada una de las 3 columnas)
 
 for (let i = 0; i < 9; i++) {
     createTargetButton(targetLanguagesList[i], languageArray[i], targetList1);
@@ -452,14 +461,15 @@ for (let i = 18; i < 27; i++) {
     createTargetButton(targetLanguagesList[i], languageArray[i], targetList3);
 }
 
-
 //Resultados DOM donde se mostrará monto total
 
 let results = document.getElementById("results");
 
-//Nombre del archivo en DOM, evento y local storage
+//Creo el botón para subir el archivo
 
 let uploadFileButton = document.getElementById("upload-file");
+
+//Obtengo el nombre del archivo del local storage o, en caso de no haberlo, obtengo el nombre a partir del archivo subido por el usuario.
 let docu;
 
 if (localStorage.getItem("filename") !== null) {
@@ -467,9 +477,7 @@ if (localStorage.getItem("filename") !== null) {
     docu = document.createElement("p");
     docu.innerText = fileName;
     uploadFileButton.appendChild(docu);
-} else {
-    fileName = document.getElementById('myFile');
-}
+} 
 
 if (document.getElementById('myFile').length > 0) {
     fileName = document.getElementById('myFile');
@@ -488,16 +496,7 @@ document.getElementById('myFile').onchange = function () {
     uploadFileButton.appendChild(docu);
 }
 
-
-fileName = localStorage.getItem("filename");
-
-//EVENTOS PARA SOURCE LANGUAGES
-
-
-//EVENTOS PARA TARGET LANGUAGES
-
-
-
+//Creo con DOM el carrito y el botón par agregar un par de idiomas.
 const cart = document.getElementById("cart");
 addButton = document.createElement("button");
 addButton.className = "add-button";
@@ -506,18 +505,21 @@ addButton.innerText = "Add language pair";
 const container = document.createElement("div");
 container.className = "cart-container";
 cart.append(container);
-
 cart.append(addButton);
+
+//Evento para agregar un par de idiomas al carrito.
 addButton.onclick = () => {
     addToCart();
 }
 
-//Botones en DOM para el tiempo elegido (turnaround), DOM y eventos
+//Botones en DOM para el tiempo elegido (turnaround), los creo en DOM
 
 let asap = document.getElementById("asap");
 let notrush = document.getElementById("notrush");
 const turnaroundList = [];
 turnaroundList.push(asap, notrush);
+
+//Agrego los eventos a los botones del tiempo elegido
 
 asap.onclick = () => {
     turnaround = "As soon as possible";
@@ -533,11 +535,13 @@ notrush.onclick = () => {
     console.log(turnaround);
 }
 
-//SUBMIT (botón para finalizar), debug y muestro resultados
+//SUBMIT (botón para finalizar) en DOM y evento para finalizar la solicitud, debug y muestro resultados
 
 submitButton = document.getElementById("submit");
 
 submitButton.onclick = () => {
+
+    //Chequeo que el cliente haya seleccionado todo lo necesario
 
     if ((avoidErrors(sourceLanguageSelected)) && (avoidErrors(targetLanguageSelected)) && (avoidErrors(fileName)) && (avoidErrors(turnaround)) && (avoidErrors(totalWordcount))) {
 
@@ -574,6 +578,8 @@ submitButton.onclick = () => {
             doc.text("Rolling Translations\n\n" + containerResults + "\n\nTotal Wordcount: " + totalWordcount + "\n\nFile Name: " + fileName + "\n\nTotal Price: $" + finalTotalAmount, 10, 10);
             doc.save("QUOTE.pdf");
         }
+
+        //Creo contenedor que mostrará el costo final y pregunta al cliente si desea que trabajemos en el proyecto.
         finalResult = document.createElement("div");
         finalResult.className = "final-result";
         finalResult.innerHTML = `\n<p>The total cost is <b>$` + finalTotalAmount + `</b>.</p>
@@ -586,6 +592,8 @@ submitButton.onclick = () => {
     <button id="send"><p>Send</p></button>`;
         results.append(finalResult);
 
+        //DOM y evento del botón para enviar el email con el formulario.
+
         let sendButton = document.getElementById("send");
         sendButton.onclick = () => {
             sendEmail();
@@ -596,5 +604,3 @@ submitButton.onclick = () => {
         localStorage.clear();
     }
 }
-
-
